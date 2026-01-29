@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { cn } from '@/lib/utils';
@@ -47,10 +48,13 @@ export default function Header() {
             <div className="relative max-w-7xl mx-auto px-6 flex items-center justify-between">
                 <Link href="/" className="group flex items-center gap-2">
                     <div className="relative w-40 h-12 flex items-center justify-start">
-                        <img
-                            src="/images/branding/logo-ref.jpg"
+                        <Image
+                            src="/images/branding/logo.png"
                             alt="Evo Wrap"
-                            className="h-full w-full object-contain transition-transform group-hover:scale-105"
+                            fill
+                            className="object-contain transition-transform group-hover:scale-105"
+                            sizes="160px"
+                            priority
                         />
                     </div>
                 </Link>

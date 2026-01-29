@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, MousePointer2, ArrowDown, Sparkles } from 'lucide-react';
 import BookingCalendar from '@/components/booking/BookingCalendar';
@@ -47,10 +48,13 @@ export default function Home() {
             <motion.div
               className="relative w-72 md:w-[500px] h-32 mx-auto mb-4"
             >
-              <img
-                src="/images/branding/logo-ref.jpg"
+              <Image
+                src="/images/branding/logo.png"
                 alt="Evo Wrap Uruguay"
-                className="w-full h-full object-contain drop-shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
+                fill
+                className="object-contain drop-shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
+                sizes="(max-width: 768px) 100vw, 500px"
+                priority
               />
             </motion.div>
           </motion.div>

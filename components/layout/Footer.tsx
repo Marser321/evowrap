@@ -3,6 +3,7 @@
 import React from 'react';
 import { MapPin, Phone, Instagram, Mail } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
     return (
@@ -19,11 +20,13 @@ export default function Footer() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                     {/* Brand Column */}
                     <div className="space-y-6">
-                        <div className="w-48">
-                            <img
-                                src="/images/branding/logo-full.png"
+                        <div className="relative w-48 h-20">
+                            <Image
+                                src="/images/branding/logo.png"
                                 alt="Evo Wrap"
-                                className="w-full object-contain"
+                                fill
+                                className="object-contain"
+                                sizes="(max-width: 768px) 100vw, 33vw"
                             />
                         </div>
                         <p className="text-zinc-400 text-sm leading-relaxed max-w-xs">
