@@ -17,7 +17,7 @@ export default function BackgroundBeams({ className }: { className?: string }) {
                     repeat: Infinity,
                     ease: "easeInOut",
                 }}
-                className="absolute -top-[20%] -left-[20%] w-[70vw] h-[70vw] bg-indigo-600/20 rounded-full blur-[120px] mix-blend-screen"
+                className="absolute -top-[20%] -left-[20%] w-[70vw] h-[70vw] bg-indigo-600/20 rounded-full blur-[90px] mix-blend-screen will-change-transform transform-gpu"
             />
 
             <motion.div
@@ -32,7 +32,7 @@ export default function BackgroundBeams({ className }: { className?: string }) {
                     ease: "easeInOut",
                     delay: 2,
                 }}
-                className="absolute top-[20%] -right-[10%] w-[60vw] h-[60vw] bg-cyan-500/10 rounded-full blur-[100px] mix-blend-screen"
+                className="absolute top-[20%] -right-[10%] w-[60vw] h-[60vw] bg-cyan-500/10 rounded-full blur-[80px] mix-blend-screen will-change-transform transform-gpu"
             />
             <motion.div
                 animate={{
@@ -45,7 +45,7 @@ export default function BackgroundBeams({ className }: { className?: string }) {
                     ease: "easeInOut",
                     delay: 5,
                 }}
-                className="absolute -bottom-[20%] left-[20%] w-[80vw] h-[80vw] bg-purple-900/20 rounded-full blur-[150px] mix-blend-screen"
+                className="absolute -bottom-[20%] left-[20%] w-[80vw] h-[80vw] bg-purple-900/20 rounded-full blur-[110px] mix-blend-screen will-change-transform transform-gpu"
             />
         </div>
     );
