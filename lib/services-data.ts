@@ -93,8 +93,8 @@ export const servicesData: Record<string, ServiceData> = {
         id: 'ppf',
         title: 'Paint Protection Film (PPF)',
         subtitle: 'El escudo invisible definitivo contra impactos y desgaste.',
-        description: 'Película de poliuretano termoplástico transparente y autorregenerativa. La única protección real contra impactos de piedras y raspones.',
-        heroImage: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=2070&auto=format&fit=crop', // Tesla being detailed
+        description: 'Película de poliuretano termoplástico transparente y autorregenerativa. La única protección real contra impactos de piedras, raspones y vandalismo, manteniendo la pintura original intacta por décadas.',
+        heroImage: 'https://images.unsplash.com/photo-1621259182978-fbf93132d53d?q=80&w=2070&auto=format&fit=crop', // Supercar detail
         secondaryImage: 'https://images.unsplash.com/photo-1567818735868-e71b99932e29?q=80&w=2070&auto=format&fit=crop', // Hood close up
         technicalSpecs: [
             { label: 'Espesor', value: '200 Micrones' },
@@ -135,13 +135,14 @@ export const servicesData: Record<string, ServiceData> = {
             },
         ],
         faq: [
-            { question: '¿Se pone amarillo?', answer: 'No. Usamos films con inhibidores UV garantizados por 10 años.' },
-            { question: '¿Se autorregenera?', answer: 'Sí. El calor hace que los micro-arañazos desaparezcan solos.' },
+            { question: '¿Se pone amarillo?', answer: 'No. Usamos films con inhibidores UV garantizados por 10 años que mantienen la transparencia absoluta.' },
+            { question: '¿Se autorregenera?', answer: 'Sí. Las marcas de lavado y micro-arañazos desaparecen por completo al aplicar calor.' },
         ],
         gallery: [
-            'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=2070&auto=format&fit=crop',
             'https://images.unsplash.com/photo-1567818735868-e71b99932e29?q=80&w=2070&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1503376763036-066120622c74?q=80&w=2070&auto=format&fit=crop'
+            'https://images.unsplash.com/photo-1503376763036-066120622c74?q=80&w=2070&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1621259182978-fbf93132d53d?q=80&w=2070&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop'
         ]
     },
     'wrapping': {
@@ -202,9 +203,9 @@ export const servicesData: Record<string, ServiceData> = {
         id: 'detailing',
         title: 'Elite Interior Detailing',
         subtitle: 'Restauración profunda para una experiencia de cabina nueva.',
-        description: 'Vapor a alta presión y química enzimática para devolver la textura y el olor original a su interior.',
-        heroImage: 'https://images.unsplash.com/photo-1607604318146-2f98642ba5ba?q=80&w=2070&auto=format&fit=crop', // Interior detail
-        secondaryImage: 'https://images.unsplash.com/photo-1594503723307-e432a688b75f?q=80&w=2062&auto=format&fit=crop', // Steering wheel detail
+        description: 'Vapor a alta presión y química enzimática para devolver la textura y el olor original a su interior. Cada superficie, desde el cuero más fino hasta las alfombras más densas, es tratada con precisión quirúrgica.',
+        heroImage: 'https://images.unsplash.com/photo-1607604318146-2f98642ba5ba?q=80&w=2070&auto=format&fit=crop', // Stunning interior view
+        secondaryImage: 'https://images.unsplash.com/photo-1570197730598-6ce814524817?q=80&w=2070&auto=format&fit=crop', // Interior spray detail
         technicalSpecs: [
             { label: 'Tiempo', value: '1 Día' },
             { label: 'Desinfección', value: 'Ozono / Vapor' },
@@ -213,43 +214,47 @@ export const servicesData: Record<string, ServiceData> = {
         ],
         process: [
             {
-                title: 'Aspirado Pro',
-                description: 'Remoción de suciedad en zonas imposibles.',
+                title: 'Aspirado de Alta Succión',
+                description: 'Remoción de suciedad encapsulada en zonas imposibles.',
                 icon: Scan,
-                image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=2070&auto=format&fit=crop' // Interior cleaning
+                image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=2070&auto=format&fit=crop' // Vacuuming interior
             },
             {
                 title: 'Limpieza Enzimática',
-                description: 'Descomposición biológica de olores.',
+                description: 'Descomposición biológica de olores y manchas.',
                 icon: Droplets,
-                image: 'https://images.unsplash.com/photo-1594248512140-54605963f46f?q=80&w=2070&auto=format&fit=crop' // Seat detail
+                image: 'https://images.unsplash.com/photo-1634055610667-336706900f07?q=80&w=2070&auto=format&fit=crop' // Detailing brush
             },
             {
-                title: 'Vapor 140°C',
-                description: 'Desinfección total de ductos y telas.',
+                title: 'Vapor de Grado Médico',
+                description: 'Desinfección total a 140°C de ductos y telas.',
                 icon: Sparkles,
-                image: 'https://images.unsplash.com/photo-1621259182978-fbf93132d53d?q=80&w=2070&auto=format&fit=crop' // Vapor/Steam
+                image: 'https://images.unsplash.com/photo-1614000531402-74cca389903f?q=80&w=2070&auto=format&fit=crop' // Steam detail
             },
             {
-                title: 'Nutrición de Cuero',
-                description: 'Acondicionadores con lanolina pura.',
+                title: 'Nutrición de Cueros',
+                description: 'Acondicionadores con aceites naturales y lanolina.',
                 icon: Layers,
-                image: 'https://images.unsplash.com/photo-1494905998402-395d579af36f?q=80&w=2070&auto=format&fit=crop' // Leather detail
+                image: 'https://images.unsplash.com/photo-1647288764834-4bc594956aa4?q=80&w=2070&auto=format&fit=crop' // Leather care
             },
             {
-                title: 'Protección UV',
-                description: 'Acabado mate original no graso.',
+                title: 'Protección Satín UV',
+                description: 'Acabado mate original que bloquea el envejecimiento solar.',
                 icon: Shield,
-                image: 'https://images.unsplash.com/photo-1563206767-5b18f218e03d?q=80&w=2070&auto=format&fit=crop' // Dashboard detail
+                image: 'https://images.unsplash.com/photo-1594248512140-54605963f46f?q=80&w=2070&auto=format&fit=crop' // Dashboard detail
             },
         ],
         faq: [
-            { question: '¿Huele a químico?', answer: 'No. Usamos productos biodegradables con aromas neutros.' },
-            { question: '¿Elimina manchas?', answer: 'Removemos el 99% de manchas orgánicas comunes.' },
+            { question: '¿Huele a químico?', answer: 'No. Usamos productos biodegradables con aromas neutros que desaparecen rápido.' },
+            { question: '¿Elimina manchas de café/sangre?', answer: 'Removemos el 99% de manchas orgánicas comunes. El éxito depende de cuánto tiempo lleve la mancha allí.' },
         ],
         gallery: [
             'https://images.unsplash.com/photo-1607604318146-2f98642ba5ba?q=80&w=2070&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1594503723307-e432a688b75f?q=80&w=2062&auto=format&fit=crop'
+            'https://images.unsplash.com/photo-1594503723307-e432a688b75f?q=80&w=2062&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1650380802100-848834466b03?q=80&w=2070&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1602419227945-91f98bc1ea3e?q=80&w=2102&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1617469767053-d3b508a04ea0?q=80&w=2102&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1614000531402-74cca389903f?q=80&w=2070&auto=format&fit=crop'
         ]
     },
 };
