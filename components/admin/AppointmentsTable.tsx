@@ -1,9 +1,11 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { MoreHorizontal, MessageCircle, CheckCircle, Clock, RefreshCw } from 'lucide-react';
+import { MoreHorizontal, MessageCircle, CheckCircle, Clock, RefreshCw, ChevronLeft, ChevronRight } from 'lucide-react';
 import { notifyClient } from '@/lib/webhookService';
 import { supabase } from '@/lib/supabase';
+
+const PAGE_SIZE = 10;
 
 // Type definition for Supabase row
 interface Appointment {
@@ -21,21 +23,28 @@ export default function AppointmentsTable() {
     const [appointments, setAppointments] = useState<Appointment[]>([]);
     const [loading, setLoading] = useState(true);
     const [loadingId, setLoadingId] = useState<string | null>(null);
+    const [page, setPage] = useState(0);
+    const [totalCount, setTotalCount] = useState(0);
 
     const fetchAppointments = useCallback(async () => {
         setLoading(true);
-        const { data, error } = await supabase
+        const from = page * PAGE_SIZE;
+        const to = from + PAGE_SIZE - 1;
+
+        const { data, error, count } = await supabase
             .from('citas')
-            .select('*')
-            .order('created_at', { ascending: false });
+            .select('id, contact_name, contact_phone, car_details, service_type, status, requested_date, created_at', { count: 'exact' })
+            .order('created_at', { ascending: false })
+            .range(from, to);
 
         if (error) {
             console.error('Error fetching appointments:', error);
         } else {
             setAppointments(data || []);
+            setTotalCount(count || 0);
         }
         setLoading(false);
-    }, []);
+    }, [page]);
 
     useEffect(() => {
         fetchAppointments();
@@ -156,6 +165,32 @@ export default function AppointmentsTable() {
                         ))}
                     </tbody>
                 </table>
+            </div>
+
+            {/* Pagination Controls */}
+            <div className="p-4 border-t border-white/5 flex items-center justify-between bg-white/5">
+                <span className="text-sm text-zinc-400">
+                    Mostrando {appointments.length > 0 ? page * PAGE_SIZE + 1 : 0} - {Math.min((page + 1) * PAGE_SIZE, totalCount)} de {totalCount}
+                </span>
+                <div className="flex items-center gap-2">
+                    <button
+                        onClick={() => setPage(p => Math.max(0, p - 1))}
+                        disabled={page === 0 || loading}
+                        className="p-2 hover:bg-white/5 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg text-zinc-400 hover:text-white transition-colors"
+                    >
+                        <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    <span className="text-sm font-medium text-zinc-300">
+                        Página {page + 1}
+                    </span>
+                    <button
+                        onClick={() => setPage(p => p + 1)}
+                        disabled={(page + 1) * PAGE_SIZE >= totalCount || loading}
+                        className="p-2 hover:bg-white/5 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg text-zinc-400 hover:text-white transition-colors"
+                    >
+                        <ChevronRight className="w-5 h-5" />
+                    </button>
+                </div>
             </div>
         </div>
     );
