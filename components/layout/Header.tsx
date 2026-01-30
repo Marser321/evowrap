@@ -2,9 +2,10 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
+import { Menu, X } from 'lucide-react';
 import Logo from '@/components/ui/Logo';
 
 const navItems = [
@@ -15,8 +16,18 @@ const navItems = [
 
 export default function Header() {
     const [scrolled, setScrolled] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const pathname = usePathname();
     const { scrollY } = useScroll();
+
+    // Lock body scroll when mobile menu is open
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+    }, [isMobileMenuOpen]);
 
     // Header opacity logic
     const headerOpacity = useTransform(scrollY, [0, 100], [0, 1]);
@@ -76,10 +87,50 @@ export default function Header() {
                     </Link>
                 </nav>
 
-                {/* Mobile Menu Button - Placeholder */}
-                <Link href="/booking" className="md:hidden px-4 py-2 bg-white/10 border border-white/20 text-white rounded-lg font-bold text-xs uppercase backdrop-blur-sm">
-                    Reservar
-                </Link>
+                {/* Mobile Menu Button */}
+                <button
+                    className="md:hidden p-2 text-white z-50 relative"
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    aria-label="Toggle menu"
+                >
+                    {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                </button>
+
+                {/* Mobile Menu Overlay */}
+                <AnimatePresence>
+                    {isMobileMenuOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, x: '100%' }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: '100%' }}
+                            transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+                            className="fixed inset-0 z-40 bg-black/90 backdrop-blur-xl md:hidden flex flex-col items-center justify-center gap-8"
+                        >
+                            <nav className="flex flex-col items-center gap-8">
+                                {navItems.map((item) => (
+                                    <Link
+                                        key={item.href}
+                                        href={item.href}
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className={cn(
+                                            "text-2xl font-medium tracking-widest uppercase transition-colors duration-300",
+                                            pathname === item.href ? "text-white" : "text-zinc-500 hover:text-white"
+                                        )}
+                                    >
+                                        {item.name}
+                                    </Link>
+                                ))}
+                                <Link
+                                    href="/booking"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="px-8 py-3 bg-white/10 border border-white/20 text-white font-bold text-sm uppercase tracking-widest rounded-full hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-sm shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] mt-4"
+                                >
+                                    Reservar
+                                </Link>
+                            </nav>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </motion.header>
     );
