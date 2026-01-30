@@ -8,7 +8,7 @@ import { ArrowLeft, CheckCircle2, MessageCircle } from 'lucide-react';
 import { servicesData } from '@/lib/services-data';
 import { ProcessTimeline } from '@/components/services/ProcessTimeline';
 import SectionBackground from '@/components/ui/SectionBackground';
-import { Logo } from '@/components/Logo';
+import Logo from '@/components/ui/Logo';
 
 export default function ServiceDetailPage() {
     const params = useParams();
@@ -20,7 +20,7 @@ export default function ServiceDetailPage() {
     }
 
     return (
-        <main className="min-h-screen bg-neutral-950 text-white selection:bg-neon-lime selection:text-black">
+        <main className="min-h-screen bg-neutral-950 text-white selection:bg-gold-500 selection:text-black">
             {/* Navigation */}
             <nav className="fixed top-0 left-0 right-0 z-50 p-6 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent pointer-events-none">
                 <Link
@@ -52,7 +52,7 @@ export default function ServiceDetailPage() {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="inline-block mb-4 px-4 py-1.5 rounded-full bg-neon-cyan/10 border border-neon-cyan/30 text-neon-cyan text-xs font-bold uppercase tracking-widest backdrop-blur-md"
+                        className="inline-block mb-4 px-4 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-500 text-xs font-bold uppercase tracking-widest backdrop-blur-md"
                     >
                         Servicio Premium
                     </motion.div>
@@ -93,7 +93,7 @@ export default function ServiceDetailPage() {
 
                             <div className="grid grid-cols-2 gap-4 pt-6">
                                 {service.technicalSpecs.map((spec, idx) => (
-                                    <div key={idx} className="p-4 rounded-xl bg-neutral-900/50 border border-white/10 hover:border-neon-cyan/30 transition-colors backdrop-blur-sm">
+                                    <div key={idx} className="p-4 rounded-xl bg-neutral-900/50 border border-white/10 hover:border-gold-500/30 transition-colors backdrop-blur-sm">
                                         <p className="text-neutral-500 text-xs uppercase tracking-wider mb-1">{spec.label}</p>
                                         <p className="text-white font-bold">{spec.value}</p>
                                     </div>
@@ -175,7 +175,7 @@ export default function ServiceDetailPage() {
                                 className="p-6 rounded-2xl bg-neutral-900/40 border border-white/5 hover:border-white/20 transition-all backdrop-blur-sm"
                             >
                                 <h3 className="text-lg font-bold mb-2 text-white flex items-start gap-3">
-                                    <span className="text-neon-lime mt-1"><CheckCircle2 size={16} /></span>
+                                    <span className="text-gold-500 mt-1"><CheckCircle2 size={16} /></span>
                                     {item.question}
                                 </h3>
                                 <p className="text-neutral-400 ml-7 text-sm leading-relaxed">
@@ -195,12 +195,12 @@ export default function ServiceDetailPage() {
                     overlayClassName="bg-gradient-to-t from-neutral-950 via-neutral-950/80 to-transparent"
                 />
 
-                <div className="max-w-3xl mx-auto p-12 rounded-3xl border border-white/10 backdrop-blur-md relative z-10 bg-black/20">
+                <div className="max-w-3xl mx-auto p-12 rounded-3xl border border-white/10 backdrop-blur-md relative z-10 bg-black/20 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
                     <h2 className="text-4xl md:text-5xl font-black mb-6 uppercase italic">¿Listo para transformar su vehículo?</h2>
                     <p className="text-zinc-300 mb-8 text-lg font-light">
                         Agenda una evaluación personalizada. Trabajamos con un número limitado de vehículos por semana.
                     </p>
-                    <Link href="/booking" className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-neon-lime text-black font-extrabold rounded-full overflow-hidden hover:bg-white transition-all shadow-[0_0_30px_rgba(204,255,0,0.4)]">
+                    <Link href="/booking" className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-gold-600 text-black font-extrabold rounded-full overflow-hidden hover:bg-gold-500 transition-all shadow-[0_0_30px_rgba(245,158,11,0.4)]">
                         <MessageCircle className="w-5 h-5" />
                         <span>Agendar Diagnóstico</span>
                         <div className="absolute inset-0 rounded-full ring-2 ring-white/20 group-hover:scale-105 transition-transform" />

@@ -90,7 +90,7 @@ export default function BeforeAfterSlider({
                 />
 
                 {/* Etiqueta 'Después' */}
-                <div className="absolute top-4 right-4 bg-neon-cyan/90 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20">
+                <div className="absolute top-4 right-4 bg-gold-500/90 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20">
                     <span className="text-xs font-bold text-black uppercase tracking-widest">
                         Evo Wrap Finish
                     </span>
@@ -99,11 +99,12 @@ export default function BeforeAfterSlider({
 
             {/* Línea divisoria y manija */}
             <div
-                className="absolute inset-y-0 w-1 bg-gradient-to-b from-transparent via-neon-cyan to-transparent z-20 pointer-events-none shadow-[0_0_20px_rgba(34,211,238,0.8)]"
+                className="absolute inset-y-0 w-1 bg-gradient-to-b from-transparent via-gold-500 to-transparent z-20 pointer-events-none shadow-[0_0_20px_rgba(245,158,11,0.8)]"
                 style={{ left: `${sliderPosition}%` }}
             >
-                <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-12 h-12 bg-black/80 border border-neon-cyan/50 rounded-full flex items-center justify-center backdrop-blur-lg shadow-[0_0_15px_rgba(34,211,238,0.3)]">
-                    <MoveHorizontal className="w-6 h-6 text-neon-cyan" />
+                <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-12 h-12 bg-black/80 border border-gold-500/50 rounded-full flex items-center justify-center backdrop-blur-lg shadow-[0_0_15px_rgba(245,158,11,0.3)] transition-transform hover:scale-110">
+                    <div className="absolute inset-0 rounded-full bg-gold-500/20 animate-ping" />
+                    <MoveHorizontal className="w-6 h-6 text-gold-500 relative z-10" />
                 </div>
             </div>
         </div>

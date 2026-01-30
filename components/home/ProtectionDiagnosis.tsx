@@ -43,7 +43,7 @@ export default function ProtectionDiagnosis() {
     return (
         <div className="w-full max-w-4xl mx-auto p-4">
             <div className="text-center mb-10">
-                <h2 className="text-3xl md:text-5xl font-bold mb-4">Diagnóstico de <span className="text-indigo-500">Riesgo</span></h2>
+                <h2 className="text-3xl md:text-5xl font-bold mb-4">Diagnóstico de <span className="text-gold-500">Riesgo</span></h2>
                 <p className="text-zinc-400">Descubre qué nivel de protección necesita tu vehículo realmente.</p>
             </div>
 
@@ -54,7 +54,7 @@ export default function ProtectionDiagnosis() {
                     <div className="grid grid-cols-2 gap-4">
                         <button
                             onClick={() => setLocation('city')}
-                            className={`p-6 rounded-2xl border transition-all ${location === 'city' ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg' : 'bg-zinc-900 border-white/10 text-zinc-400 hover:bg-zinc-800'}`}
+                            className={`p-6 rounded-2xl border transition-all ${location === 'city' ? 'bg-gold-600 border-gold-500 text-white shadow-lg' : 'bg-zinc-900 border-white/10 text-zinc-400 hover:bg-zinc-800'}`}
                         >
                             <Warehouse className="w-8 h-8 mb-2 mx-auto" />
                             <span className="block font-bold">Ciudad / Interior</span>
@@ -101,12 +101,12 @@ export default function ProtectionDiagnosis() {
                         exit={{ opacity: 0, y: -20 }}
                         className="bg-zinc-900/80 border border-white/10 p-8 rounded-3xl backdrop-blur-xl relative overflow-hidden"
                     >
-                        <div className={`absolute top-0 right-0 p-4 rounded-bl-3xl font-black text-xl uppercase ${risk === 'EXTREMO' ? 'bg-red-500 text-white' : risk === 'ALTO' ? 'bg-orange-500 text-white' : 'bg-indigo-500 text-white'}`}>
+                        <div className={`absolute top-0 right-0 p-4 rounded-bl-3xl font-black text-xl uppercase ${risk === 'EXTREMO' ? 'bg-red-500 text-white' : risk === 'ALTO' ? 'bg-amber-500 text-white' : 'bg-gold-500 text-white'}`}>
                             Riesgo {risk}
                         </div>
 
                         <div className="flex items-start gap-6 relative z-10">
-                            <div className={`p-4 rounded-full ${risk === 'EXTREMO' ? 'bg-red-500/20 text-red-500' : 'bg-indigo-500/20 text-indigo-500'}`}>
+                            <div className={`p-4 rounded-full ${risk === 'EXTREMO' ? 'bg-red-500/20 text-red-500' : 'bg-gold-500/20 text-gold-500'}`}>
                                 {risk === 'EXTREMO' ? <ShieldAlert size={32} /> : <ShieldCheck size={32} />}
                             </div>
                             <div>

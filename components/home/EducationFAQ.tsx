@@ -32,7 +32,7 @@ export default function EducationFAQ() {
         <div className="flex flex-col h-full justify-center w-full max-w-4xl mx-auto px-4">
             <div className="text-center mb-12">
                 <h2 className="text-4xl md:text-6xl font-black text-white mb-4">
-                    EVO <span className="text-indigo-500">KNOWLEDGE</span>
+                    EVO <span className="text-gold-500">KNOWLEDGE</span>
                 </h2>
                 <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
                     La verdad técnica detrás de la protección automotriz. Sin mitos.
@@ -43,13 +43,13 @@ export default function EducationFAQ() {
                 {faqs.map((faq, idx) => (
                     <div
                         key={idx}
-                        className={`group rounded-2xl border transition-all duration-300 ${openIndex === idx ? 'bg-zinc-900/80 border-indigo-500/50 shadow-[0_0_30px_rgba(99,102,241,0.1)]' : 'bg-transparent border-white/10 hover:border-white/20'}`}
+                        className={`group rounded-2xl border transition-all duration-300 ${openIndex === idx ? 'bg-zinc-900/80 border-gold-500/50 shadow-[0_0_30px_rgba(212,175,55,0.1)]' : 'bg-transparent border-white/10 hover:border-white/20'}`}
                     >
                         <button
                             onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
                             className="w-full text-left p-6 flex items-start gap-4"
                         >
-                            <div className={`mt-1 p-2 rounded-lg transition-colors ${openIndex === idx ? 'bg-indigo-500 text-white' : 'bg-zinc-800 text-zinc-400 group-hover:text-white'}`}>
+                            <div className={`mt-1 p-2 rounded-lg transition-colors ${openIndex === idx ? 'bg-gold-500 text-black' : 'bg-zinc-800 text-zinc-400 group-hover:text-white'}`}>
                                 <faq.icon size={24} />
                             </div>
 
@@ -75,7 +75,7 @@ export default function EducationFAQ() {
                                             <p className="pt-4 text-zinc-400 leading-relaxed text-base">
                                                 {faq.answer}
                                             </p>
-                                            <div className="mt-4 inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white/5 text-xs text-indigo-300 font-medium uppercase tracking-wider">
+                                            <div className="mt-4 inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white/5 text-xs text-gold-400 font-medium uppercase tracking-wider">
                                                 {faq.tag}
                                             </div>
                                         </motion.div>

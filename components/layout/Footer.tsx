@@ -3,7 +3,7 @@
 import React from 'react';
 import { MapPin, Phone, Instagram, Mail } from 'lucide-react';
 import Link from 'next/link';
-import { Logo } from '@/components/Logo';
+import Logo from '@/components/ui/Logo';
 
 export default function Footer() {
     return (

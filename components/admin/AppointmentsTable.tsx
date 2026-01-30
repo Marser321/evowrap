@@ -82,23 +82,23 @@ export default function AppointmentsTable() {
 
     const getStatusColor = (status: string) => {
         switch (status) {
-            case 'En Proceso': return 'bg-blue-500/20 text-blue-400 border-blue-500/30';
-            case 'Listo para Entrega': return 'bg-green-500/20 text-green-400 border-green-500/30';
-            case 'Pendiente': return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';
+            case 'En Proceso': return 'bg-amber-500/20 text-amber-500 border-amber-500/30';
+            case 'Listo para Entrega': return 'bg-gold-500/20 text-gold-500 border-gold-500/30';
+            case 'Pendiente': return 'bg-zinc-800 text-zinc-400 border-white/5';
             default: return 'bg-zinc-800 text-zinc-400';
         }
     };
 
     return (
-        <div className="bg-zinc-900/50 border border-white/5 rounded-3xl overflow-hidden backdrop-blur-sm">
-            <div className="p-6 border-b border-white/5 flex justify-between items-center">
+        <div className="bg-zinc-900/50 border border-white/5 rounded-3xl overflow-hidden backdrop-blur-sm shadow-2xl">
+            <div className="p-6 border-b border-white/5 flex justify-between items-center bg-gradient-to-r from-transparent to-gold-500/5">
                 <h3 className="text-xl font-bold flex items-center gap-2">
                     Agenda Activa
-                    {loading && <RefreshCw className="w-4 h-4 animate-spin text-zinc-500" />}
+                    {loading && <RefreshCw className="w-4 h-4 animate-spin text-gold-500" />}
                 </h3>
                 <button
                     onClick={fetchAppointments}
-                    className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-500 transition-colors"
+                    className="px-4 py-2 bg-gold-600 text-black rounded-lg text-sm font-bold hover:bg-gold-500 transition-all shadow-[0_0_15px_rgba(217,119,6,0.3)]"
                 >
                     Actualizar
                 </button>

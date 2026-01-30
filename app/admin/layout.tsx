@@ -12,12 +12,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 <BrandWatermark opacity={0.03} scale={1.2} />
 
                 <div className="p-8 pb-4 relative z-10">
-                    <img src="/images/branding/logo-full.png" alt="Evo Wrap Admin" className="h-8 mb-2 invert brightness-0 invert-1" />
-                    <p className="text-xs text-zinc-500 tracking-widest uppercase mt-1 pl-1">Mission Control</p>
+                    <img src="/images/branding/logo-metal-dark.png" alt="Evo Wrap Admin" className="h-10 mb-2" />
+                    <p className="text-xs text-gold-500/50 tracking-[0.2em] uppercase mt-1 pl-1">Admin Panel</p>
                 </div>
 
                 <nav className="flex-1 px-4 space-y-2 relative z-10">
-                    <Link href="/admin" className="flex items-center gap-3 px-4 py-3 rounded-xl bg-indigo-500/10 text-indigo-400 font-medium">
+                    <Link href="/admin" className="flex items-center gap-3 px-4 py-3 rounded-xl bg-gold-500/10 text-gold-500 font-bold border border-gold-500/20">
                         <LayoutDashboard className="w-5 h-5" />
                         Dashboard
                     </Link>
@@ -36,7 +36,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 </nav>
 
                 <div className="p-4 border-t border-white/5">
-                    <button className="flex items-center gap-3 px-4 py-3 w-full rounded-xl hover:bg-red-500/10 text-zinc-400 hover:text-red-400 transition-colors">
+                    <button className="flex items-center gap-3 px-4 py-3 w-full rounded-xl hover:bg-gold-500/10 text-zinc-500 hover:text-gold-500 transition-colors">
                         <LogOut className="w-5 h-5" />
                         Cerrar Sesión
                     </button>

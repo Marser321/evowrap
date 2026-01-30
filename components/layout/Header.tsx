@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
-import { Logo } from '@/components/Logo';
+import Logo from '@/components/ui/Logo';
 
 const navItems = [
     { name: 'Inicio', href: '/' },
@@ -47,9 +47,7 @@ export default function Header() {
 
             <div className="relative max-w-7xl mx-auto px-6 flex items-center justify-between">
                 <Link href="/" className="group flex items-center gap-2">
-                    <div className="relative w-40 h-12 flex items-center justify-start">
-                        <Logo className="h-full w-auto text-white" />
-                    </div>
+                    <Logo variant="header" className="h-full w-auto" />
                 </Link>
 
                 {/* Desktop Nav */}

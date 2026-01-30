@@ -51,14 +51,14 @@ export default function TransformationShowcase() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-indigo-400 font-bold text-xs uppercase tracking-widest mb-6"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gold-500 font-bold text-xs uppercase tracking-widest mb-6"
                 >
                     <Sparkles className="w-4 h-4" />
                     <span>Resultado Épico</span>
                 </motion.div>
 
                 <h2 className="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-tight">
-                    Antes vs <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Después</span>
+                    Antes vs <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-amber-600">Después</span>
                 </h2>
                 <p className="text-zinc-400 max-w-2xl mx-auto text-lg">
                     Desliza para ver la transformación completa. De un acabado estándar a una protección de nivel concurso.

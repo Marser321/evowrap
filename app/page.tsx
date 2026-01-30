@@ -3,101 +3,34 @@
 import { motion } from "framer-motion";
 import BeforeAfterSlider from "@/components/BeforeAfterSlider";
 import SectionBackground from "@/components/ui/SectionBackground";
+import Hero from "@/components/home/Hero";
+import TransformationSection from "@/components/home/TransformationSection";
 import Link from "next/link";
 import { ArrowRight, Shield, Zap, Star } from "lucide-react";
-import { Logo } from "@/components/Logo";
+<<<<<<< HEAD
+import ServicesHorizontal from "@/components/home/ServicesHorizontal";
+=======
+import Logo from "@/components/ui/Logo";
+>>>>>>> 5d3a3dd062e16b4ccd93d5fd54915dbc09436a13
 
 export default function Home() {
   return (
-    <main className="flex flex-col min-h-screen bg-neutral-950 text-white overflow-x-hidden">
+    <main className="flex flex-col min-h-screen bg-neutral-950 text-white">
 
-      {/* 1. HERO SECTION */}
-      <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
-        {/* Background Layer - Cinematic */}
-        <SectionBackground
-          src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2070&auto=format&fit=crop" // Dark Porsche/Luxury Car
-          alt="Luxury Car Dark Background"
-          opacity={0.6}
-          overlayClassName="bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-black/60"
-          priority={true}
-        />
-
-        {/* Hero Content */}
-        <div className="relative z-20 text-center max-w-5xl px-6">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-          >
-            <div className="flex justify-center mb-8">
-              <Logo className="w-64 h-auto md:w-96 text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.2)]" />
-            </div>
-
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-neon-lime text-lg md:text-2xl font-bold tracking-[0.3em] uppercase mb-6"
-            >
-              Automotive Luxury
-            </motion.h2>
-
-            <motion.h1
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 1 }}
-              className="text-4xl md:text-7xl font-black uppercase italic tracking-tighter mb-10 text-white leading-tight"
-            >
-              Reinventa <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-200 to-zinc-500">Tu Vehículo</span>
-            </motion.h1>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-              className="flex flex-col md:flex-row gap-6 justify-center items-center"
-            >
-              <Link
-                href="/booking"
-                className="bg-neon-lime text-black font-extrabold px-8 py-4 rounded-full text-lg uppercase tracking-wider hover:bg-white hover:shadow-[0_0_30px_rgba(204,255,0,0.4)] transition-all flex items-center gap-2 group"
-              >
-                Cotizar Proyecto
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </Link>
-              <Link
-                href="#transformation"
-                className="px-8 py-4 rounded-full border border-white/20 hover:bg-white/10 text-white font-bold uppercase tracking-widest transition-all backdrop-blur-sm"
-              >
-                Ver Transformaciones
-              </Link>
-            </motion.div>
-          </motion.div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute bottom-10 z-20 text-white/50"
-        >
-          <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-white to-transparent mx-auto" />
-        </motion.div>
-      </section>
+      {/* 1. HERO SECTION (Redesigned) */}
+      <Hero />
 
       {/* 2. TRANSFORMATION SECTION (Slider) */}
-      <section id="transformation" className="relative py-32 px-6">
-        <SectionBackground
-          src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1966&auto=format&fit=crop" // Interior Detail / Texture
-          alt="Garage Texture Background"
-          opacity={0.15}
-          overlayClassName="bg-neutral-950/90"
-        />
+      <TransformationSection />
 
+<<<<<<< HEAD
+      {/* 3. SERVICES HORIZONTAL SCROLL (Restored) */}
+      <ServicesHorizontal />
+=======
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-16">
             <h3 className="text-4xl md:text-6xl font-black uppercase italic mb-4">
-              Transformación <span className="text-neon-cyan drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]">Total</span>
+              Transformación <span className="text-gold-500 drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]">Total</span>
             </h3>
             <p className="text-neutral-400 max-w-xl mx-auto text-lg">
               Desliza para descubrir el cambio radical. De lo estándar a lo extraordinario.
@@ -224,6 +157,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+>>>>>>> 5d3a3dd062e16b4ccd93d5fd54915dbc09436a13
 
     </main>
   );
