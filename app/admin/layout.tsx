@@ -17,9 +17,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 </div>
 
                 <nav className="flex-1 px-4 space-y-2 relative z-10">
-                    <Link href="/admin" className="flex items-center gap-3 px-4 py-3 rounded-xl bg-gold-500/10 text-gold-500 font-bold border border-gold-500/20">
+                    <Link href="/admin" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 text-zinc-400 hover:text-white transition-colors">
                         <LayoutDashboard className="w-5 h-5" />
                         Dashboard
+                    </Link>
+                    <Link href="/admin/services" className="flex items-center gap-3 px-4 py-3 rounded-xl bg-gold-500/10 text-gold-500 font-bold border border-gold-500/20">
+                        <Settings className="w-5 h-5" /> {/* Using Settings icon as placeholder or maybe a different one like Image or Layers */}
+                        Servicios
                     </Link>
                     <Link href="/admin/calendar" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 text-zinc-400 hover:text-white transition-colors">
                         <Calendar className="w-5 h-5" />

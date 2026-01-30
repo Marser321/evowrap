@@ -1,10 +1,11 @@
 import React from 'react';
-import { Shield, Sparkles, Droplets, Sun, Layers, Microscope, Scan, UserCheck } from 'lucide-react';
+import { Shield, Sparkles, Droplets, Sun, Layers, Microscope, Scan, UserCheck, Zap } from 'lucide-react'; // Added Zap just in case, verify step 704 didn't have it? 704 had Microscope etc. I will include all from 704 + imports.
+import { supabase } from '@/lib/supabase';
 
 export interface ProcessStep {
     title: string;
     description: string;
-    icon: React.ElementType; // Lucide icon component
+    icon: React.ElementType;
     image?: string;
 }
 
@@ -13,7 +14,7 @@ export interface ServiceData {
     title: string;
     subtitle: string;
     description: string;
-    heroImage: string; // Placeholder for now
+    heroImage: string;
     secondaryImage?: string;
     technicalSpecs: {
         label: string;
@@ -27,14 +28,14 @@ export interface ServiceData {
     gallery?: string[];
 }
 
-export const servicesData: Record<string, ServiceData> = {
+export const defaultServicesData: Record<string, ServiceData> = {
     'ceramic-coating': {
         id: 'ceramic-coating',
         title: 'Tratamiento Cerámico Gtechniq',
         subtitle: 'Protección molecular de vanguardia para una estética inigualable.',
         description: 'Nuestro tratamiento cerámico crea una barrera química permanente que se une a la pintura de su vehículo. Proporciona resistencia extrema a químicos, rayos UV y suciedad, manteniendo un brillo de exhibición por años.',
-        heroImage: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=2070&auto=format&fit=crop', // Close up of car paint
-        secondaryImage: 'https://images.unsplash.com/photo-1621259182978-fbf93132d53d?q=80&w=2070&auto=format&fit=crop', // Red car detailing
+        heroImage: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=2070&auto=format&fit=crop',
+        secondaryImage: 'https://images.unsplash.com/photo-1621259182978-fbf93132d53d?q=80&w=2070&auto=format&fit=crop',
         technicalSpecs: [
             { label: 'Dureza', value: '9H/10H (Escala Mohs)' },
             { label: 'Duración', value: 'Hasta 5 años' },
@@ -46,31 +47,31 @@ export const servicesData: Record<string, ServiceData> = {
                 title: 'Descontaminación Química',
                 description: 'Eliminación profunda de partículas metálicas y brea.',
                 icon: Microscope,
-                image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop' // Foam Wash
+                image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop'
             },
             {
                 title: 'Corrección de Barniz',
                 description: 'Nivelación microscópica de la laca para brillo extremo.',
                 icon: Sparkles,
-                image: 'https://images.unsplash.com/photo-1626077383615-189f3a8b418a?q=80&w=2070&auto=format&fit=crop' // Polishing
+                image: 'https://images.unsplash.com/photo-1626077383615-189f3a8b418a?q=80&w=2070&auto=format&fit=crop'
             },
             {
                 title: 'Desengrasado IPA',
                 description: 'Limpieza final para una adhesión perfecta.',
                 icon: Droplets,
-                image: 'https://images.unsplash.com/photo-1634055610667-336706900f07?q=80&w=2070&auto=format&fit=crop' // Surface cleaning
+                image: 'https://images.unsplash.com/photo-1634055610667-336706900f07?q=80&w=2070&auto=format&fit=crop'
             },
             {
                 title: 'Aplicación Multicapa',
                 description: 'Control de humedad y temperatura para curado uniforme.',
                 icon: Layers,
-                image: 'https://images.unsplash.com/photo-1621259182978-fbf93132d53d?q=80&w=2070&auto=format&fit=crop' // Detailing detail
+                image: 'https://images.unsplash.com/photo-1621259182978-fbf93132d53d?q=80&w=2070&auto=format&fit=crop'
             },
             {
                 title: 'Curado IR',
                 description: 'Lámparas infrarrojas para sellar la protección.',
                 icon: Scan,
-                image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=2070&auto=format&fit=crop' // Red car detail
+                image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=2070&auto=format&fit=crop'
             },
         ],
         faq: [
@@ -94,8 +95,8 @@ export const servicesData: Record<string, ServiceData> = {
         title: 'Paint Protection Film (PPF)',
         subtitle: 'El escudo invisible definitivo contra impactos y desgaste.',
         description: 'Película de poliuretano termoplástico transparente y autorregenerativa. La única protección real contra impactos de piedras, raspones y vandalismo, manteniendo la pintura original intacta por décadas.',
-        heroImage: 'https://images.unsplash.com/photo-1601362840469-51e4d8d59085?q=80&w=2070&auto=format&fit=crop', // Supercar detail
-        secondaryImage: 'https://images.unsplash.com/photo-1567818735868-e71b99932e29?q=80&w=2070&auto=format&fit=crop', // Hood close up
+        heroImage: 'https://images.unsplash.com/photo-1601362840469-51e4d8d59085?q=80&w=2070&auto=format&fit=crop',
+        secondaryImage: 'https://images.unsplash.com/photo-1567818735868-e71b99932e29?q=80&w=2070&auto=format&fit=crop',
         technicalSpecs: [
             { label: 'Espesor', value: '200 Micrones' },
             { label: 'Autorregeneración', value: 'Sí (con calor)' },
@@ -107,31 +108,31 @@ export const servicesData: Record<string, ServiceData> = {
                 title: 'Descontaminación Extrema',
                 description: 'Limpieza quirúrgica previa.',
                 icon: Microscope,
-                image: 'https://images.unsplash.com/photo-1600294037233-0c46aec33486?q=80&w=2070&auto=format&fit=crop' // High pressure wash
+                image: 'https://images.unsplash.com/photo-1600294037233-0c46aec33486?q=80&w=2070&auto=format&fit=crop'
             },
             {
                 title: 'Diseño Digital',
                 description: 'Patrones exactos por computadora.',
                 icon: Scan,
-                image: 'https://images.unsplash.com/photo-1563206767-5b18f218e03d?q=80&w=2070&auto=format&fit=crop' // Computerized pattern
+                image: 'https://images.unsplash.com/photo-1563206767-5b18f218e03d?q=80&w=2070&auto=format&fit=crop'
             },
             {
                 title: 'Instalación con Gel',
                 description: 'Posicionamiento preciso sin burbujas.',
                 icon: Layers,
-                image: 'https://images.unsplash.com/photo-1503376763036-066120622c74?q=80&w=2070&auto=format&fit=crop' // Porsche detail
+                image: 'https://images.unsplash.com/photo-1503376763036-066120622c74?q=80&w=2070&auto=format&fit=crop'
             },
             {
                 title: 'Sellado de Bordes',
                 description: 'Instalación indetectable en aristas.',
                 icon: Shield,
-                image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop' // Supercar detail
+                image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop'
             },
             {
                 title: 'Inspección Final',
                 description: 'Revisión tras 24hs de asentamiento.',
                 icon: UserCheck,
-                image: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=2070&auto=format&fit=crop' // Ford Mustang detail
+                image: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=2070&auto=format&fit=crop'
             },
         ],
         faq: [
@@ -150,8 +151,8 @@ export const servicesData: Record<string, ServiceData> = {
         title: 'Vinyl Wrapping',
         subtitle: 'Transformación radical de color y estética premium.',
         description: 'Personalización total sin comprometer la pintura original. Cientos de acabados premium: mate, satinado, cromo o texturizados.',
-        heroImage: 'https://images.unsplash.com/photo-1621359953476-b1629904f81c?q=80&w=2070&auto=format&fit=crop', // Wrapped Lambo
-        secondaryImage: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop', // Supercar
+        heroImage: 'https://images.unsplash.com/photo-1621359953476-b1629904f81c?q=80&w=2070&auto=format&fit=crop',
+        secondaryImage: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop',
         technicalSpecs: [
             { label: 'Material', value: 'Vinilo Cast 3M/Avery' },
             { label: 'Duración', value: '5-7 Años' },
@@ -169,26 +170,26 @@ export const servicesData: Record<string, ServiceData> = {
                 title: 'Limpieza de Residuos',
                 description: 'Eliminación total de ceras y grasas.',
                 icon: Droplets,
-                image: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=2070&auto=format&fit=crop' // Polay detail
+                image: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=2070&auto=format&fit=crop'
             },
             {
                 title: 'Moldeado Térmico',
                 description: 'Adaptación perfecta a curvas complejas.',
                 icon: Layers,
-                image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2070&auto=format&fit=crop' // Surface detail
+                image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2070&auto=format&fit=crop'
             },
             {
                 title: 'Corte Invisible',
                 description: 'Precisión quirúrgica en cada panel.',
                 icon: Sparkles,
-                image: 'https://images.unsplash.com/photo-1614002241517-742a1cf45501?q=80&w=2070&auto=format&fit=crop' // Precision detail
+                image: 'https://images.unsplash.com/photo-1614002241517-742a1cf45501?q=80&w=2070&auto=format&fit=crop'
             },
             {
                 title: 'Post-Calentamiento',
                 description: 'Sellado de memoria del material.',
                 icon: Shield,
-                image: 'https://images.unsplash.com/photo-1494905998402-395d579af36f?q=80&w=2070&auto=format&fit=crop' // Supercar
-            },
+                image: 'https://images.unsplash.com/photo-1494905998402-395d579af36f?q=80&w=2070&auto=format&fit=crop'
+            }
         ],
         faq: [
             { question: '¿Daña la pintura?', answer: 'No. Al contrario, la protege de rayos UV y pequeños impactos.' },
@@ -204,8 +205,8 @@ export const servicesData: Record<string, ServiceData> = {
         title: 'Elite Interior Detailing',
         subtitle: 'Restauración profunda para una experiencia de cabina nueva.',
         description: 'Vapor a alta presión y química enzimática para devolver la textura y el olor original a su interior. Cada superficie, desde el cuero más fino hasta las alfombras más densas, es tratada con precisión quirúrgica.',
-        heroImage: 'https://images.unsplash.com/photo-1607604318146-2f98642ba5ba?q=80&w=2070&auto=format&fit=crop', // Stunning interior view
-        secondaryImage: 'https://images.unsplash.com/photo-1570197730598-6ce814524817?q=80&w=2070&auto=format&fit=crop', // Interior spray detail
+        heroImage: 'https://images.unsplash.com/photo-1607604318146-2f98642ba5ba?q=80&w=2070&auto=format&fit=crop',
+        secondaryImage: 'https://images.unsplash.com/photo-1570197730598-6ce814524817?q=80&w=2070&auto=format&fit=crop',
         technicalSpecs: [
             { label: 'Tiempo', value: '1 Día' },
             { label: 'Desinfección', value: 'Ozono / Vapor' },
@@ -217,31 +218,31 @@ export const servicesData: Record<string, ServiceData> = {
                 title: 'Aspirado de Alta Succión',
                 description: 'Remoción de suciedad encapsulada en zonas imposibles.',
                 icon: Scan,
-                image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=2070&auto=format&fit=crop' // Vacuuming interior
+                image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=2070&auto=format&fit=crop'
             },
             {
                 title: 'Limpieza Enzimática',
                 description: 'Descomposición biológica de olores y manchas.',
                 icon: Droplets,
-                image: 'https://images.unsplash.com/photo-1634055610667-336706900f07?q=80&w=2070&auto=format&fit=crop' // Detailing brush
+                image: 'https://images.unsplash.com/photo-1634055610667-336706900f07?q=80&w=2070&auto=format&fit=crop'
             },
             {
                 title: 'Vapor de Grado Médico',
                 description: 'Desinfección total a 140°C de ductos y telas.',
                 icon: Sparkles,
-                image: 'https://images.unsplash.com/photo-1614000531402-74cca389903f?q=80&w=2070&auto=format&fit=crop' // Steam detail
+                image: 'https://images.unsplash.com/photo-1614000531402-74cca389903f?q=80&w=2070&auto=format&fit=crop'
             },
             {
                 title: 'Nutrición de Cueros',
                 description: 'Acondicionadores con aceites naturales y lanolina.',
                 icon: Layers,
-                image: 'https://images.unsplash.com/photo-1647288764834-4bc594956aa4?q=80&w=2070&auto=format&fit=crop' // Leather care
+                image: 'https://images.unsplash.com/photo-1647288764834-4bc594956aa4?q=80&w=2070&auto=format&fit=crop'
             },
             {
                 title: 'Protección Satín UV',
                 description: 'Acabado mate original que bloquea el envejecimiento solar.',
                 icon: Shield,
-                image: 'https://images.unsplash.com/photo-1594248512140-54605963f46f?q=80&w=2070&auto=format&fit=crop' // Dashboard detail
+                image: 'https://images.unsplash.com/photo-1594248512140-54605963f46f?q=80&w=2070&auto=format&fit=crop'
             },
         ],
         faq: [
@@ -256,5 +257,41 @@ export const servicesData: Record<string, ServiceData> = {
             'https://images.unsplash.com/photo-1617469767053-d3b508a04ea0?q=80&w=2102&auto=format&fit=crop',
             'https://images.unsplash.com/photo-1614000531402-74cca389903f?q=80&w=2070&auto=format&fit=crop'
         ]
-    },
+    }
 };
+
+export const servicesData = defaultServicesData;
+
+export async function getServices(): Promise<Record<string, ServiceData>> {
+    try {
+        const { data, error } = await supabase.from('services').select('*');
+
+        if (error) {
+            console.error("Supabase fetch error:", error);
+            // Don't fail completely, return defaults
+            return defaultServicesData;
+        }
+
+        // If no data in DB, return defaults
+        if (!data || data.length === 0) {
+            return defaultServicesData;
+        }
+
+        const newServices = { ...defaultServicesData };
+
+        data.forEach((service: any) => {
+            if (newServices[service.id]) {
+                newServices[service.id] = {
+                    ...newServices[service.id],
+                    title: service.title || newServices[service.id].title,
+                    description: service.description || newServices[service.id].description,
+                    heroImage: service.hero_image_url || newServices[service.id].heroImage,
+                };
+            }
+        });
+        return newServices;
+    } catch (e) {
+        console.error("Failed to fetch services", e);
+        return defaultServicesData;
+    }
+}

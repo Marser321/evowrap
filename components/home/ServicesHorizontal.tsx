@@ -6,36 +6,40 @@ import Link from 'next/link';
 import { ArrowRight, Sparkles, Shield, Droplets } from 'lucide-react';
 import ServicesDynamicBackground from './ServicesDynamicBackground';
 
-import { servicesData } from '@/lib/services-data';
+import { ServiceData } from '@/lib/services-data';
 
-const services = [
-    {
-        ...servicesData['ceramic-coating'],
-        icon: Droplets,
-        color: 'from-amber-400 to-gold-600',
-        image: servicesData['ceramic-coating'].heroImage
-    },
-    {
-        ...servicesData['ppf'],
-        icon: Shield,
-        color: 'from-gold-400 to-amber-600',
-        image: servicesData['ppf'].heroImage
-    },
-    {
-        ...servicesData['detailing'],
-        icon: Sparkles,
-        color: 'from-gold-600 to-zinc-400',
-        image: servicesData['detailing'].heroImage
-    },
-    {
-        ...servicesData['wrapping'],
-        icon: ArrowRight, // Temporary icon or import another
-        color: 'from-neutral-600 to-neutral-400',
-        image: servicesData['wrapping'].heroImage
-    }
-];
+interface ServicesHorizontalProps {
+    data: Record<string, ServiceData>;
+}
 
-export default function ServicesHorizontal() {
+export default function ServicesHorizontal({ data }: ServicesHorizontalProps) {
+    const services = [
+        {
+            ...data['ceramic-coating'],
+            icon: Droplets,
+            color: 'from-amber-400 to-gold-600',
+            image: data['ceramic-coating'].heroImage
+        },
+        {
+            ...data['ppf'],
+            icon: Shield,
+            color: 'from-gold-400 to-amber-600',
+            image: data['ppf'].heroImage
+        },
+        {
+            ...data['detailing'],
+            icon: Sparkles,
+            color: 'from-gold-600 to-zinc-400',
+            image: data['detailing'].heroImage
+        },
+        {
+            ...data['wrapping'],
+            icon: ArrowRight, // Temporary icon or import another
+            color: 'from-neutral-600 to-neutral-400',
+            image: data['wrapping'].heroImage
+        }
+    ];
+
     const targetRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: targetRef,
