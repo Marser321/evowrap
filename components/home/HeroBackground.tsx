@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import Image from 'next/image';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 
 interface HeroBackgroundProps {
@@ -22,6 +22,7 @@ export default function HeroBackground({ src, alt }: HeroBackgroundProps) {
     const springConfig = { damping: 30, stiffness: 100 };
     const springX = useSpring(mouseX, springConfig);
     const springY = useSpring(mouseY, springConfig);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
@@ -35,12 +36,31 @@ export default function HeroBackground({ src, alt }: HeroBackgroundProps) {
             mouseY.set(yPct * -30);
         };
 
-        window.addEventListener('mousemove', handleMouseMove);
-        return () => window.removeEventListener('mousemove', handleMouseMove);
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        window.addEventListener('mousemove', handleMouseMove);
+                    } else {
+                        window.removeEventListener('mousemove', handleMouseMove);
+                    }
+                });
+            },
+            { rootMargin: '0px', threshold: 0 }
+        );
+
+        if (containerRef.current) {
+            observer.observe(containerRef.current);
+        }
+
+        return () => {
+            observer.disconnect();
+            window.removeEventListener('mousemove', handleMouseMove);
+        };
     }, [mouseX, mouseY]);
 
     return (
-        <div className="absolute inset-0 z-0 overflow-hidden bg-black">
+        <div ref={containerRef} className="absolute inset-0 z-0 overflow-hidden bg-black">
             <motion.div
                 className="relative w-full h-full scale-110" // Initial scale to allow for movement without edges showing
                 style={{
