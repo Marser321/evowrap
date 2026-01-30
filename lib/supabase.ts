@@ -5,10 +5,14 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
 // Fallback to avoid build-time crashes if variables are missing
 if (!supabaseUrl || !supabaseAnonKey) {
+    const missing = [];
+    if (!supabaseUrl) missing.push('NEXT_PUBLIC_SUPABASE_URL');
+    if (!supabaseAnonKey) missing.push('NEXT_PUBLIC_SUPABASE_ANON_KEY');
+
     if (process.env.NODE_ENV === 'production') {
-        console.error('CRITICAL: Supabase environment variables are missing!');
+        console.error(`CRITICAL: Supabase environment variables are missing: ${missing.join(', ')}`);
     } else {
-        console.warn('Supabase env variables missing. Check .env.local');
+        console.warn(`Supabase env variables missing: ${missing.join(', ')}. Check .env.local`);
     }
 }
 
