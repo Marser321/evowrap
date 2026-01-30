@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 
 interface CanvasSequenceProps {
@@ -27,23 +27,62 @@ export default function CanvasSequence({ frameCount, framePath }: CanvasSequence
         let loadedCount = 0;
         const imgArray: HTMLImageElement[] = [];
 
+        // Initialize array with image objects
+        for (let i = 0; i < frameCount; i++) {
+            imgArray.push(new Image());
+        }
+        setImages(imgArray);
+
+        let isMounted = true;
+
         const loadImages = async () => {
-            for (let i = 0; i < frameCount; i++) {
-                const img = new Image();
-                img.src = framePath(i);
-                img.onload = () => {
-                    loadedCount++;
-                    if (loadedCount === frameCount) setIsLoaded(true);
-                };
-                imgArray.push(img);
+            const concurrency = 6;
+            let index = 0;
+            const activePromises: Promise<void>[] = [];
+
+            const loadNext = (): Promise<void> => {
+                if (index >= frameCount) return Promise.resolve();
+
+                const currentIndex = index++;
+                const img = imgArray[currentIndex];
+
+                return new Promise<void>((resolve) => {
+                    img.onload = () => {
+                        if (!isMounted) return;
+                        loadedCount++;
+                        if (loadedCount === frameCount) setIsLoaded(true);
+                        resolve();
+                    };
+                    img.onerror = () => {
+                        if (!isMounted) return;
+                        // Count errors as loaded to allow completion
+                        loadedCount++;
+                        if (loadedCount === frameCount) setIsLoaded(true);
+                        resolve();
+                    };
+                    img.src = framePath(currentIndex);
+                }).then(() => {
+                    // When one finishes, try to load next if any left
+                    return loadNext();
+                });
+            };
+
+            // Start initial batch
+            for (let i = 0; i < concurrency; i++) {
+                activePromises.push(loadNext());
             }
-            setImages(imgArray);
+
+            await Promise.all(activePromises);
         };
 
         loadImages();
+
+        return () => {
+            isMounted = false;
+        };
     }, [frameCount, framePath]);
 
-    const renderFrame = (index: number) => {
+    const renderFrame = useCallback((index: number) => {
         const canvas = canvasRef.current;
         if (!canvas || !images[index]) return;
 
@@ -76,7 +115,7 @@ export default function CanvasSequence({ frameCount, framePath }: CanvasSequence
             img.width * ratio,
             img.height * ratio
         );
-    };
+    }, [images]);
 
     useMotionValueEvent(currentIndex, "change", (latest) => {
         if (isLoaded) {
@@ -87,7 +126,7 @@ export default function CanvasSequence({ frameCount, framePath }: CanvasSequence
     // Initial render when loaded
     useEffect(() => {
         if (isLoaded) renderFrame(0);
-    }, [isLoaded]);
+    }, [isLoaded, renderFrame]);
 
     return (
         <div ref={containerRef} className="relative h-[400vh] bg-black">
