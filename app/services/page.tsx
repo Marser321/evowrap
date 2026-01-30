@@ -176,10 +176,10 @@ export default function ServicesPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1 }}
                     >
-                        <h1 className="text-6xl md:text-9xl font-black uppercase italic tracking-tighter mb-6">
+                        <h1 className="text-4xl md:text-9xl font-black uppercase italic tracking-tighter mb-6">
                             Nuestra <br /><span className="text-gold-500 stroke-text-gold">Expertise</span>
                         </h1>
-                        <p className="text-xl md:text-2xl text-neutral-400 max-w-2xl font-light mb-12 mx-auto">
+                        <p className="text-lg md:text-2xl text-neutral-400 max-w-2xl font-light mb-12 mx-auto">
                             Ingeniería y arte combinados para la protección definitiva de su inversión automotriz.
                         </p>
                         <motion.div

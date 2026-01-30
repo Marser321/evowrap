@@ -65,7 +65,7 @@ export default function ServiceDetailPage() {
                             stiffness: 100,
                             delay: 0.1
                         }}
-                        className="text-5xl md:text-9xl font-black mb-8 uppercase italic tracking-tighter text-white drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+                        className="text-4xl md:text-9xl font-black mb-8 uppercase italic tracking-tighter text-white drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] leading-[0.9]"
                     >
                         {service.title}
                     </motion.h1>
