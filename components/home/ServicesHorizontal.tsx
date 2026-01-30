@@ -6,30 +6,32 @@ import Link from 'next/link';
 import { ArrowRight, Sparkles, Shield, Droplets } from 'lucide-react';
 import ServicesDynamicBackground from './ServicesDynamicBackground';
 
+import { servicesData } from '@/lib/services-data';
+
 const services = [
     {
-        id: 'ceramic-coating',
-        title: 'Tratamiento Cerámico',
-        description: 'Brillo espejo y protección molecular Gtechniq.',
-        image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=2070&auto=format&fit=crop',
+        ...servicesData['ceramic-coating'],
         icon: Droplets,
-        color: 'from-amber-400 to-gold-600'
+        color: 'from-amber-400 to-gold-600',
+        image: servicesData['ceramic-coating'].heroImage
     },
     {
-        id: 'ppf',
-        title: 'Paint Protection Film',
-        description: 'Blindaje invisible autorregenerativo contra impactos.',
-        image: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=2070&auto=format&fit=crop',
+        ...servicesData['ppf'],
         icon: Shield,
-        color: 'from-gold-400 to-amber-600'
+        color: 'from-gold-400 to-amber-600',
+        image: servicesData['ppf'].heroImage
     },
     {
-        id: 'detailing',
-        title: 'Elite Detailing',
-        description: 'Restauración profunda y desinfección de interiores.',
-        image: 'https://images.unsplash.com/photo-1607604318146-2f98642ba5ba?q=80&w=2070&auto=format&fit=crop',
+        ...servicesData['detailing'],
         icon: Sparkles,
-        color: 'from-gold-600 to-zinc-400'
+        color: 'from-gold-600 to-zinc-400',
+        image: servicesData['detailing'].heroImage
+    },
+    {
+        ...servicesData['wrapping'],
+        icon: ArrowRight, // Temporary icon or import another
+        color: 'from-neutral-600 to-neutral-400',
+        image: servicesData['wrapping'].heroImage
     }
 ];
 
@@ -58,7 +60,10 @@ export default function ServicesHorizontal() {
         <section ref={targetRef} className="relative h-[450vh] bg-neutral-950">
             {/* 1. Global Dynamic Background */}
             <div className="sticky top-0 h-screen w-full overflow-hidden">
-                <ServicesDynamicBackground scrollYProgress={scrollYProgress} />
+                <ServicesDynamicBackground
+                    scrollYProgress={scrollYProgress}
+                    images={services.map(s => s.image)}
+                />
             </div>
 
             {/* 2. Scroll Content */}

@@ -6,42 +6,32 @@ import Link from 'next/link';
 import { ArrowRight, Shield, Droplets, Sparkles, Zap, ChevronDown } from 'lucide-react';
 import SectionBackground from '@/components/ui/SectionBackground';
 
+import { servicesData } from '@/lib/services-data';
+
 const services = [
     {
-        id: 'ceramic-coating',
-        title: 'Tratamiento Cerámico',
-        subtitle: 'Protección Molecular Gtechniq',
-        description: 'Crea una barrera química permanente que se une a la pintura de su vehículo. Proporciona resistencia extrema a químicos, rayos UV y suciedad con un brillo de exhibición.',
-        image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=2070&auto=format&fit=crop', // Lamborghini Detail (Gloss)
+        ...servicesData['ceramic-coating'],
+        image: servicesData['ceramic-coating'].heroImage,
         icon: Droplets,
-        stats: ['9H Dureza', '5 Años Garantía', 'Efecto Espejo']
+        stats: servicesData['ceramic-coating'].technicalSpecs.slice(0, 3).map(s => `${s.value} ${s.label}`)
     },
     {
-        id: 'ppf',
-        title: 'Paint Protection Film',
-        subtitle: 'Blindaje Invisible Autorregenerativo',
-        description: 'La única protección real contra impactos de piedras, raspones y vandalismo. Película de poliuretano termoplástico que se cura sola con el calor.',
-        image: 'https://images.unsplash.com/photo-1567818735868-e71b99932e29?q=80&w=2070&auto=format&fit=crop', // Silver Audi Sport (Clean/Protected look)
+        ...servicesData['ppf'],
+        image: servicesData['ppf'].heroImage,
         icon: Shield,
-        stats: ['200 micrones', 'Self-Healing', '10 Años Garantía']
+        stats: servicesData['ppf'].technicalSpecs.slice(0, 3).map(s => `${s.value} ${s.label}`)
     },
     {
-        id: 'wrapping',
-        title: 'Vinyl Wrapping',
-        subtitle: 'Transformación de Color Premium',
-        description: 'Personalización total sin comprometer la pintura original. Cientos de acabados: mate, satinado, cromo o texturizados con materiales de grado automotriz.',
-        image: 'https://images.unsplash.com/photo-1554223090-7e482851df45?q=80&w=2003&auto=format&fit=crop', // Satin Grey Ferrari (Wrap look)
+        ...servicesData['wrapping'],
+        image: servicesData['wrapping'].heroImage,
         icon: Zap,
-        stats: ['Reversible', 'Protección UV', '+500 Colores']
+        stats: servicesData['wrapping'].technicalSpecs.slice(0, 3).map(s => `${s.value} ${s.label}`)
     },
     {
-        id: 'detailing',
-        title: 'Elite Detailing',
-        subtitle: 'Restauración Profunda de Habitáculo',
-        description: 'Revivimos el interior de su vehículo con vapor a alta presión y química enzimática. Eliminación de bacterias, olores y restauración de cueros.',
-        image: 'https://images.unsplash.com/photo-1594503723307-e432a688b75f?q=80&w=2062&auto=format&fit=crop', // Ultra Clean Shiny Sports Car
+        ...servicesData['detailing'],
+        image: servicesData['detailing'].heroImage,
         icon: Sparkles,
-        stats: ['Desinfección Ozono', 'Acabado Factory', 'Cuero Nutrido']
+        stats: servicesData['detailing'].technicalSpecs.slice(0, 3).map(s => `${s.value} ${s.label}`)
     }
 ];
 

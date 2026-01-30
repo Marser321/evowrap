@@ -46,25 +46,25 @@ export const servicesData: Record<string, ServiceData> = {
                 title: 'Descontaminación Química',
                 description: 'Eliminación profunda de partículas metálicas y brea.',
                 icon: Microscope,
-                image: 'https://images.unsplash.com/photo-1601362840469-51e4d8d59085?q=80&w=2070&auto=format&fit=crop' // Foam Wash
+                image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop' // Foam Wash
             },
             {
                 title: 'Corrección de Barniz',
                 description: 'Nivelación microscópica de la laca para brillo extremo.',
                 icon: Sparkles,
-                image: 'https://images.unsplash.com/photo-1599256621730-535171e28e50?q=80&w=2070&auto=format&fit=crop' // Polishing
+                image: 'https://images.unsplash.com/photo-1626077383615-189f3a8b418a?q=80&w=2070&auto=format&fit=crop' // Polishing
             },
             {
                 title: 'Desengrasado IPA',
                 description: 'Limpieza final para una adhesión perfecta.',
                 icon: Droplets,
-                image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2070&auto=format&fit=crop' // Surface cleaning
+                image: 'https://images.unsplash.com/photo-1634055610667-336706900f07?q=80&w=2070&auto=format&fit=crop' // Surface cleaning
             },
             {
                 title: 'Aplicación Multicapa',
                 description: 'Control de humedad y temperatura para curado uniforme.',
                 icon: Layers,
-                image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=2070&auto=format&fit=crop' // Detailing detail
+                image: 'https://images.unsplash.com/photo-1621259182978-fbf93132d53d?q=80&w=2070&auto=format&fit=crop' // Detailing detail
             },
             {
                 title: 'Curado IR',
@@ -94,7 +94,7 @@ export const servicesData: Record<string, ServiceData> = {
         title: 'Paint Protection Film (PPF)',
         subtitle: 'El escudo invisible definitivo contra impactos y desgaste.',
         description: 'Película de poliuretano termoplástico transparente y autorregenerativa. La única protección real contra impactos de piedras, raspones y vandalismo, manteniendo la pintura original intacta por décadas.',
-        heroImage: 'https://images.unsplash.com/photo-1621259182978-fbf93132d53d?q=80&w=2070&auto=format&fit=crop', // Supercar detail
+        heroImage: 'https://images.unsplash.com/photo-1601362840469-51e4d8d59085?q=80&w=2070&auto=format&fit=crop', // Supercar detail
         secondaryImage: 'https://images.unsplash.com/photo-1567818735868-e71b99932e29?q=80&w=2070&auto=format&fit=crop', // Hood close up
         technicalSpecs: [
             { label: 'Espesor', value: '200 Micrones' },
@@ -107,7 +107,7 @@ export const servicesData: Record<string, ServiceData> = {
                 title: 'Descontaminación Extrema',
                 description: 'Limpieza quirúrgica previa.',
                 icon: Microscope,
-                image: 'https://images.unsplash.com/photo-1607860108855-64acf2078ed9?q=80&w=2070&auto=format&fit=crop' // High pressure wash
+                image: 'https://images.unsplash.com/photo-1600294037233-0c46aec33486?q=80&w=2070&auto=format&fit=crop' // High pressure wash
             },
             {
                 title: 'Diseño Digital',
@@ -163,7 +163,7 @@ export const servicesData: Record<string, ServiceData> = {
                 title: 'Desarmado Técnico',
                 description: 'Remoción de manijas y espejos para ocultar bordes.',
                 icon: Scan,
-                image: 'https://images.unsplash.com/photo-1562233237-10d556a30c5e?q=80&w=2070&auto=format&fit=crop' // Mechanics/detail
+                image: 'https://images.unsplash.com/photo-1553440569-bcc63803a83d?q=80&w=2025&auto=format&fit=crop'
             },
             {
                 title: 'Limpieza de Residuos',

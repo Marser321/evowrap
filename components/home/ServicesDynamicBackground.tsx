@@ -5,50 +5,39 @@ import Image from 'next/image';
 
 interface ServicesDynamicBackgroundProps {
     scrollYProgress: MotionValue<number>;
+    images: string[];
 }
 
-const backgroundImages = [
-    {
-        src: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=2070&auto=format&fit=crop", // Lamborghini
-        alt: "Ceramic Coating Detail",
-        position: "center"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=2070&auto=format&fit=crop", // Porsche
-        alt: "PPF Protection",
-        position: "center"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1607604318146-2f98642ba5ba?q=80&w=2070&auto=format&fit=crop", // Interior
-        alt: "Luxury Interior Detailing",
-        position: "center center"
-    }
-];
-
-export default function ServicesDynamicBackground({ scrollYProgress }: ServicesDynamicBackgroundProps) {
+export default function ServicesDynamicBackground({ scrollYProgress, images }: ServicesDynamicBackgroundProps) {
     // Opacity Mappings
     // Image 1: Visible initially, fades out as we move to Card 2
-    const opacity1 = useTransform(scrollYProgress, [0, 0.25, 0.35], [1, 1, 0]);
+    const opacity1 = useTransform(scrollYProgress, [0, 0.2, 0.3], [1, 1, 0]);
 
-    // Image 2: Fades in for Card 2, fades out for Card 3
-    const opacity2 = useTransform(scrollYProgress, [0.25, 0.35, 0.6, 0.7], [0, 1, 1, 0]);
+    // Image 2: Fades in for Card 2
+    const opacity2 = useTransform(scrollYProgress, [0.2, 0.3, 0.45, 0.55], [0, 1, 1, 0]);
 
-    // Image 3: Fades in for Card 3, fades out for Final CTA
-    const opacity3 = useTransform(scrollYProgress, [0.6, 0.7, 0.9, 1], [0, 1, 1, 0]);
+    // Image 3: Fades in for Card 3
+    const opacity3 = useTransform(scrollYProgress, [0.45, 0.55, 0.7, 0.8], [0, 1, 1, 0]);
 
-    const opacities = [opacity1, opacity2, opacity3];
+    // Image 4: Fades in for Card 4 (New)
+    const opacity4 = useTransform(scrollYProgress, [0.7, 0.8, 1, 1], [0, 1, 1, 1]);
+
+    const opacities = [opacity1, opacity2, opacity3, opacity4];
+
+    // Ensure we have 4 images or fallback
+    const displayImages = images.length >= 4 ? images : [...images, ...images]; // naive fallback
 
     return (
         <div className="absolute inset-0 w-full h-full overflow-hidden">
-            {backgroundImages.map((img, index) => (
+            {displayImages.slice(0, 4).map((src, index) => (
                 <motion.div
                     key={index}
                     style={{ opacity: opacities[index] }}
                     className="absolute inset-0 w-full h-full"
                 >
                     <Image
-                        src={img.src}
-                        alt={img.alt}
+                        src={src}
+                        alt={`Service Background ${index}`}
                         fill
                         className="object-cover transition-transform duration-[2s] ease-out scale-105"
                         quality={80}

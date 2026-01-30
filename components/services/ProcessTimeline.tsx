@@ -2,6 +2,7 @@
 
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import Image from 'next/image';
 import { ProcessStep } from '@/lib/services-data';
 import { cn } from '@/lib/utils';
 import { LucideIcon } from 'lucide-react';
@@ -175,6 +176,24 @@ function TimelineItem({ step, index, total }: { step: ProcessStep; index: number
                 >
                     {/* Card Scan Line Effect */}
                     <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-gold-500/20 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 origin-center" />
+
+                    {/* Step Image (New - Fixes "No Photos" issue) */}
+                    <div className="relative h-48 w-full mb-6 rounded-2xl overflow-hidden border border-white/10 shadow-inner group-hover:scale-[1.02] transition-transform duration-500 bg-neutral-900">
+                        {step.image ? (
+                            <Image
+                                src={step.image}
+                                alt={step.title}
+                                fill
+                                className="object-cover"
+                                sizes="(max-w-768px) 100vw, 33vw"
+                            />
+                        ) : (
+                            <div className="absolute inset-0 bg-neutral-800 flex items-center justify-center">
+                                <Icon className="text-white/20" size={48} />
+                            </div>
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    </div>
 
                     <div className="flex items-center gap-5 mb-6">
                         <div className="p-4 rounded-[20px] bg-white/5 text-gold-500 border border-white/10 group-hover:bg-gold-500 group-hover:text-black transition-all duration-500 flex-shrink-0">
