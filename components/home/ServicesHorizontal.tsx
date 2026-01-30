@@ -10,26 +10,26 @@ const services = [
     {
         id: 'ceramic-coating',
         title: 'Tratamiento Cerámico',
-        description: 'Brillo espejo y protección molecular.',
-        image: '/images/services/ceramic-card.png',
+        description: 'Brillo espejo y protección molecular Gtechniq.',
+        image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=2070&auto=format&fit=crop',
         icon: Droplets,
-        color: 'from-cyan-500 to-blue-500'
+        color: 'from-amber-400 to-gold-600'
     },
     {
         id: 'ppf',
         title: 'Paint Protection Film',
-        description: 'Blindaje invisible contra impactos.',
-        image: '/images/services/ppf-card.png',
+        description: 'Blindaje invisible autorregenerativo contra impactos.',
+        image: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=2070&auto=format&fit=crop',
         icon: Shield,
-        color: 'from-indigo-500 to-purple-500'
+        color: 'from-gold-400 to-amber-600'
     },
     {
         id: 'detailing',
-        title: 'Detailing de Interiores',
-        description: 'Restauración profunda de cueros y fibras.',
-        image: '/images/services/detailing-card.png',
+        title: 'Elite Detailing',
+        description: 'Restauración profunda y desinfección de interiores.',
+        image: 'https://images.unsplash.com/photo-1607604318146-2f98642ba5ba?q=80&w=2070&auto=format&fit=crop',
         icon: Sparkles,
-        color: 'from-amber-500 to-orange-500'
+        color: 'from-gold-600 to-zinc-400'
     }
 ];
 

@@ -9,8 +9,8 @@ import Logo from '@/components/ui/Logo';
 
 const navItems = [
     { name: 'Inicio', href: '/' },
-    { name: 'Servicios', href: '/#services' },
-    { name: 'Diágnostico', href: '/#diagnosis' },
+    { name: 'Servicios', href: '/services' },
+    { name: 'Diagnóstico', href: '/booking' },
 ];
 
 export default function Header() {

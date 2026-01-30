@@ -5,6 +5,7 @@ export interface ProcessStep {
     title: string;
     description: string;
     icon: React.ElementType; // Lucide icon component
+    image?: string;
 }
 
 export interface ServiceData {
@@ -31,9 +32,9 @@ export const servicesData: Record<string, ServiceData> = {
         id: 'ceramic-coating',
         title: 'Tratamiento Cerámico Gtechniq',
         subtitle: 'Protección molecular de vanguardia para una estética inigualable.',
-        description: 'Nuestro tratamiento cerámico crea una barrera química permanente que se une a la pintura de su vehículo. No es una cera, es una capa de vidrio líquido que endurece, proporcionando resistencia extrema a químicos, rayos UV y suciedad, manteniendo un brillo de exhibición por años.',
-        heroImage: '/images/services/ceramic-macro.png',
-        secondaryImage: '/images/services/ceramic-card.png',
+        description: 'Nuestro tratamiento cerámico crea una barrera química permanente que se une a la pintura de su vehículo. Proporciona resistencia extrema a químicos, rayos UV y suciedad, manteniendo un brillo de exhibición por años.',
+        heroImage: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=2070&auto=format&fit=crop', // Close up of car paint
+        secondaryImage: 'https://images.unsplash.com/photo-1621259182978-fbf93132d53d?q=80&w=2070&auto=format&fit=crop', // Red car detailing
         technicalSpecs: [
             { label: 'Dureza', value: '9H/10H (Escala Mohs)' },
             { label: 'Duración', value: 'Hasta 5 años' },
@@ -42,54 +43,59 @@ export const servicesData: Record<string, ServiceData> = {
         ],
         process: [
             {
-                title: 'Descontaminación Química y Férrica',
-                description: 'Eliminación profunda de partículas metálicas, brea y savia incrustadas en el poro del barniz que el lavado tradicional no quita. Prepara la superficie para una adhesión molecular perfecta.',
+                title: 'Descontaminación Química',
+                description: 'Eliminación profunda de partículas metálicas y brea.',
                 icon: Microscope,
+                image: 'https://images.unsplash.com/photo-1601362840469-51e4d8d59085?q=80&w=2070&auto=format&fit=crop' // Foam Wash
             },
             {
-                title: 'Corrección de Barniz (Pulido)',
-                description: 'Nivelación microscópica de la laca para eliminar swirls, hologramas y arañazos. Este paso es crítico: el brillo real proviene de la planitud de la superficie, no solo del producto aplicado.',
+                title: 'Corrección de Barniz',
+                description: 'Nivelación microscópica de la laca para brillo extremo.',
                 icon: Sparkles,
+                image: 'https://images.unsplash.com/photo-1599256621730-535171e28e50?q=80&w=2070&auto=format&fit=crop' // Polishing
             },
             {
                 title: 'Desengrasado IPA',
-                description: 'Limpieza final con alcohol isopropílico puro para remover cualquier aceite de pulimento residual, asegurando que el cerámico ancle directamente sobre el barniz virgen.',
+                description: 'Limpieza final para una adhesión perfecta.',
                 icon: Droplets,
+                image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2070&auto=format&fit=crop' // Surface cleaning
             },
             {
                 title: 'Aplicación Multicapa',
-                description: 'Aplicación manual precisa de Crystal Serum Light y EXO. Controlamos humedad y temperatura para garantizar un curado uniforme y la máxima dureza estructural.',
+                description: 'Control de humedad y temperatura para curado uniforme.',
                 icon: Layers,
+                image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=2070&auto=format&fit=crop' // Detailing detail
             },
             {
-                title: 'Curado IR y Control de Calidad',
-                description: 'Inspección final bajo luces de espectro corregido y curado acelerado con lámparas infrarrojas para sellar la protección antes de la entrega.',
+                title: 'Curado IR',
+                description: 'Lámparas infrarrojas para sellar la protección.',
                 icon: Scan,
+                image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=2070&auto=format&fit=crop' // Red car detail
             },
         ],
         faq: [
             {
-                question: '¿Necesito encerar mi auto después del cerámico?',
-                answer: 'No. El cerámico reemplaza la necesidad de ceras. De hecho, aplicar cera puede disminuir las propiedades hidrofóbicas del recubrimiento.',
+                question: '¿Necesito encerar mi auto?',
+                answer: 'No. El cerámico reemplaza la necesidad de ceras.',
             },
             {
-                question: '¿Protege contra arañazos profundos?',
-                answer: 'Aumenta la resistencia a micro-arañazos de lavado (swirls), pero no es un escudo contra golpes o llaves. Para esa protección física, recomendamos PPF.',
+                question: '¿Protege contra golpes?',
+                answer: 'No. Para protección contra impactos recomendamos PPF.',
             },
         ],
         gallery: [
-            '/images/services/ceramic-card.png',
-            '/images/showcase/grey-detail-macro.jpg',
-            '/images/showcase/grey-futuristic-rear.png'
+            'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=2070&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1621259182978-fbf93132d53d?q=80&w=2070&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=2070&auto=format&fit=crop'
         ]
     },
     'ppf': {
         id: 'ppf',
         title: 'Paint Protection Film (PPF)',
         subtitle: 'El escudo invisible definitivo contra impactos y desgaste.',
-        description: 'El PPF es una película de poliuretano termoplástico transparente y autorregenerativa. Es la única protección real contra impactos de piedras, raspones de estacionamiento y vandalismo menor, manteniendo la pintura original intacta bajo un escudo invisible.',
-        heroImage: '/images/services/ppf-macro.png',
-        secondaryImage: '/images/services/ppf-card.png',
+        description: 'Película de poliuretano termoplástico transparente y autorregenerativa. La única protección real contra impactos de piedras y raspones.',
+        heroImage: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=2070&auto=format&fit=crop', // Tesla being detailed
+        secondaryImage: 'https://images.unsplash.com/photo-1567818735868-e71b99932e29?q=80&w=2070&auto=format&fit=crop', // Hood close up
         technicalSpecs: [
             { label: 'Espesor', value: '200 Micrones' },
             { label: 'Autorregeneración', value: 'Sí (con calor)' },
@@ -99,99 +105,151 @@ export const servicesData: Record<string, ServiceData> = {
         process: [
             {
                 title: 'Descontaminación Extrema',
-                description: 'Limpieza exhaustiva para asegurar que ninguna partícula quede atrapada bajo el film. Cualquier imperfección se magnificaría, por lo que la limpieza es quirúrgica.',
+                description: 'Limpieza quirúrgica previa.',
                 icon: Microscope,
+                image: 'https://images.unsplash.com/photo-1607860108855-64acf2078ed9?q=80&w=2070&auto=format&fit=crop' // High pressure wash
             },
             {
-                title: 'Diseño y Corte Digital',
-                description: 'Utilizamos software de precisión para cortar los patrones exactos de su modelo de vehículo. Esto minimiza el uso de navajas sobre la pintura y garantiza un ajuste perfecto en bordes y esquinas.',
+                title: 'Diseño Digital',
+                description: 'Patrones exactos por computadora.',
                 icon: Scan,
+                image: 'https://images.unsplash.com/photo-1563206767-5b18f218e03d?q=80&w=2070&auto=format&fit=crop' // Computerized pattern
             },
             {
                 title: 'Instalación con Gel',
-                description: 'Posicionamiento del film utilizando geles de deslizamiento especiales. Es un arte que requiere paciencia para eliminar burbujas y tensión sin distorsionar la claridad óptica del material.',
+                description: 'Posicionamiento preciso sin burbujas.',
                 icon: Layers,
+                image: 'https://images.unsplash.com/photo-1503376763036-066120622c74?q=80&w=2070&auto=format&fit=crop' // Porsche detail
             },
             {
                 title: 'Sellado de Bordes',
-                description: 'Doblamos y adherimos los bordes hacia el interior de los paneles siempre que sea posible, haciendo que la instalación sea prácticamente indetectable a simple vista.',
+                description: 'Instalación indetectable en aristas.',
                 icon: Shield,
+                image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop' // Supercar detail
             },
             {
                 title: 'Inspección Final',
-                description: 'Revisión minuciosa después de 24 horas de asentamiento para asegurar la adherencia total y la ausencia de defectos antes de entregar su vehículo protegido.',
+                description: 'Revisión tras 24hs de asentamiento.',
                 icon: UserCheck,
+                image: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=2070&auto=format&fit=crop' // Ford Mustang detail
             },
         ],
         faq: [
-            {
-                question: '¿El PPF se pone amarillo con el tiempo?',
-                answer: 'Nuestras láminas de alta gama cuentan con inhibidores UV avanzados que previenen el amarillamiento, garantizado por 10 años.',
-            },
-            {
-                question: '¿Si se raya el film, se puede arreglar?',
-                answer: 'Sí. El PPF tiene propiedades autorregenerativas (self-healing). El calor del sol o agua caliente hace que los micro-arañazos desaparezcan solos al volver el polímero a su forma original.',
-            },
+            { question: '¿Se pone amarillo?', answer: 'No. Usamos films con inhibidores UV garantizados por 10 años.' },
+            { question: '¿Se autorregenera?', answer: 'Sí. El calor hace que los micro-arañazos desaparezcan solos.' },
         ],
         gallery: [
-            '/images/services/ppf-card.png',
-            '/images/showcase/grey-ferrari.png',
-            '/images/showcase/black-mustang.png'
+            'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=2070&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1567818735868-e71b99932e29?q=80&w=2070&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1503376763036-066120622c74?q=80&w=2070&auto=format&fit=crop'
+        ]
+    },
+    'wrapping': {
+        id: 'wrapping',
+        title: 'Vinyl Wrapping',
+        subtitle: 'Transformación radical de color y estética premium.',
+        description: 'Personalización total sin comprometer la pintura original. Cientos de acabados premium: mate, satinado, cromo o texturizados.',
+        heroImage: 'https://images.unsplash.com/photo-1621359953476-b1629904f81c?q=80&w=2070&auto=format&fit=crop', // Wrapped Lambo
+        secondaryImage: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop', // Supercar
+        technicalSpecs: [
+            { label: 'Material', value: 'Vinilo Cast 3M/Avery' },
+            { label: 'Duración', value: '5-7 Años' },
+            { label: 'Reversible', value: '100%' },
+            { label: 'Colores', value: '+500 Opciones' },
+        ],
+        process: [
+            {
+                title: 'Desarmado Técnico',
+                description: 'Remoción de manijas y espejos para ocultar bordes.',
+                icon: Scan,
+                image: 'https://images.unsplash.com/photo-1562233237-10d556a30c5e?q=80&w=2070&auto=format&fit=crop' // Mechanics/detail
+            },
+            {
+                title: 'Limpieza de Residuos',
+                description: 'Eliminación total de ceras y grasas.',
+                icon: Droplets,
+                image: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=2070&auto=format&fit=crop' // Polay detail
+            },
+            {
+                title: 'Moldeado Térmico',
+                description: 'Adaptación perfecta a curvas complejas.',
+                icon: Layers,
+                image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2070&auto=format&fit=crop' // Surface detail
+            },
+            {
+                title: 'Corte Invisible',
+                description: 'Precisión quirúrgica en cada panel.',
+                icon: Sparkles,
+                image: 'https://images.unsplash.com/photo-1614002241517-742a1cf45501?q=80&w=2070&auto=format&fit=crop' // Precision detail
+            },
+            {
+                title: 'Post-Calentamiento',
+                description: 'Sellado de memoria del material.',
+                icon: Shield,
+                image: 'https://images.unsplash.com/photo-1494905998402-395d579af36f?q=80&w=2070&auto=format&fit=crop' // Supercar
+            },
+        ],
+        faq: [
+            { question: '¿Daña la pintura?', answer: 'No. Al contrario, la protege de rayos UV y pequeños impactos.' },
+            { question: '¿Se puede lavar?', answer: 'Sí, pero recomendamos lavado a mano o sin cepillos agresivos.' },
+        ],
+        gallery: [
+            'https://images.unsplash.com/photo-1621359953476-b1629904f81c?q=80&w=2070&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop'
         ]
     },
     'detailing': {
         id: 'detailing',
-        title: 'Detailing de Interiores',
+        title: 'Elite Interior Detailing',
         subtitle: 'Restauración profunda para una experiencia de cabina nueva.',
-        description: 'No es solo una limpieza, es una restauración. Utilizamos vapor a alta presión, química enzimática y acondicionadores de cuero con pH neutro para devolver la textura, el olor y el acabado mate original de fábrica a su interior, eliminando bacterias y alérgenos.',
-        heroImage: '/images/services/detailing-card.png',
-        secondaryImage: '/images/process/red-gtr-foam.jpg',
+        description: 'Vapor a alta presión y química enzimática para devolver la textura y el olor original a su interior.',
+        heroImage: 'https://images.unsplash.com/photo-1607604318146-2f98642ba5ba?q=80&w=2070&auto=format&fit=crop', // Interior detail
+        secondaryImage: 'https://images.unsplash.com/photo-1594503723307-e432a688b75f?q=80&w=2062&auto=format&fit=crop', // Steering wheel detail
         technicalSpecs: [
             { label: 'Tiempo', value: '1 Día' },
             { label: 'Desinfección', value: 'Ozono / Vapor' },
             { label: 'Protección', value: 'Hidratación UV' },
-            { label: 'Alcance', value: 'Tapizados, Alfombras, Techo' },
+            { label: 'Alcance', value: 'Techo, Alfombras, Cueros' },
         ],
         process: [
             {
-                title: 'Aspirado de Precisión',
-                description: 'Utilizamos boquillas especiales y aire comprimido para remover suciedad de rieles de asientos, ductos de ventilación y costuras donde la aspiradora común no llega.',
+                title: 'Aspirado Pro',
+                description: 'Remoción de suciedad en zonas imposibles.',
                 icon: Scan,
+                image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=2070&auto=format&fit=crop' // Interior cleaning
             },
             {
                 title: 'Limpieza Enzimática',
-                description: 'Aplicación de limpiadores biológicos que descomponen la materia orgánica en alfombras y telas, eliminando olores de raíz en lugar de enmascararlos.',
+                description: 'Descomposición biológica de olores.',
                 icon: Droplets,
+                image: 'https://images.unsplash.com/photo-1594248512140-54605963f46f?q=80&w=2070&auto=format&fit=crop' // Seat detail
             },
             {
-                title: 'Vaporizado Térmico',
-                description: 'Inyección de vapor a 140°C para matar bacterias en ductos de aire y disolver grasitud en plásticos y cueros sin usar químicos agresivos.',
+                title: 'Vapor 140°C',
+                description: 'Desinfección total de ductos y telas.',
                 icon: Sparkles,
+                image: 'https://images.unsplash.com/photo-1621259182978-fbf93132d53d?q=80&w=2070&auto=format&fit=crop' // Vapor/Steam
             },
             {
-                title: 'Restauración de Cuero',
-                description: 'Limpieza profunda de poros del cuero seguida de una hidratación con acondicionadores de lanolina que devuelven la flexibilidad y el acabado mate original.',
+                title: 'Nutrición de Cuero',
+                description: 'Acondicionadores con lanolina pura.',
                 icon: Layers,
+                image: 'https://images.unsplash.com/photo-1494905998402-395d579af36f?q=80&w=2070&auto=format&fit=crop' // Leather detail
             },
             {
-                title: 'Dressing de Plásticos',
-                description: 'Protección UV para tableros y puertas con acabado satinado "No-Grasoso". Previene el agrietamiento por sol y repele el polvo.',
+                title: 'Protección UV',
+                description: 'Acabado mate original no graso.',
                 icon: Shield,
+                image: 'https://images.unsplash.com/photo-1563206767-5b18f218e03d?q=80&w=2070&auto=format&fit=crop' // Dashboard detail
             },
         ],
         faq: [
-            {
-                question: '¿Sacan butacas para limpiar?',
-                answer: 'Solo si es estrictamente necesario y seguro (sin sensores de airbag). Generalmente, nuestras herramientas de alcance profundo logran mejores resultados sin desarmar el vehículo.',
-            },
-            {
-                question: '¿Cuándo seca el interior?',
-                answer: 'Entregamos el vehículo 100% seco. Utilizamos turbinas de calor para secar alfombras y tapizados antes de la entrega para evitar olor a humedad.',
-            },
+            { question: '¿Huele a químico?', answer: 'No. Usamos productos biodegradables con aromas neutros.' },
+            { question: '¿Elimina manchas?', answer: 'Removemos el 99% de manchas orgánicas comunes.' },
         ],
         gallery: [
-            '/images/process/red-gtr-foam.jpg',
-            '/images/services/detailing-card.png'
+            'https://images.unsplash.com/photo-1607604318146-2f98642ba5ba?q=80&w=2070&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1594503723307-e432a688b75f?q=80&w=2062&auto=format&fit=crop'
         ]
     },
 };

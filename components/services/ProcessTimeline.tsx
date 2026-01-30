@@ -1,10 +1,11 @@
 'use client';
 
-import { useRef, useId } from 'react';
+import { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ProcessStep } from '@/lib/services-data';
 import { cn } from '@/lib/utils';
 import { LucideIcon } from 'lucide-react';
+import SectionBackground from '@/components/ui/SectionBackground';
 
 interface ProcessTimelineProps {
     steps: ProcessStep[];
@@ -14,59 +15,104 @@ export function ProcessTimeline({ steps }: ProcessTimelineProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: containerRef,
-        offset: ['start end', 'end start'],
+        offset: ['start start', 'end end'],
     });
 
     const scaleY = useSpring(scrollYProgress, {
-        stiffness: 100,
+        stiffness: 70,
         damping: 30,
         restDelta: 0.001,
     });
 
     return (
-        <section ref={containerRef} className="relative py-24 bg-neutral-950 overflow-hidden">
-            {/* Background Ambient Light */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-sky-500/10 blur-[120px] rounded-full pointer-events-none" />
+        <section ref={containerRef} className="relative min-h-[500vh] bg-neutral-950">
+            {/* STICKY BACKGROUND SYSTEM */}
+            <div className="sticky top-0 h-screen w-full overflow-hidden pointer-events-none">
+                {steps.map((step, index) => {
+                    const start = index / steps.length;
+                    const end = (index + 1) / steps.length;
 
-            <div className="container relative z-10 px-4 md:px-6 max-w-5xl mx-auto">
-                <div className="text-center mb-20">
-                    <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-indigo-400 mb-4"
-                    >
-                        El Proceso EVO
-                    </motion.h2>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
-                        className="text-neutral-400 max-w-2xl mx-auto"
-                    >
-                        Ciencia y precisión en cada etapa. No saltamos pasos; perfeccionamos cada detalle para un resultado de exhibición.
-                    </motion.p>
-                </div>
+                    // eslint-disable-next-line react-hooks/rules-of-hooks
+                    const opacity = useTransform(scrollYProgress,
+                        [start - 0.1, start, end - 0.05, end],
+                        [0, 1, 1, 0]
+                    );
 
-                <div className="relative">
-                    {/* Vertical Line Container */}
-                    <div className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-0.5 md:-translate-x-1/2 bg-neutral-800 h-full rounded-full">
+                    // eslint-disable-next-line react-hooks/rules-of-hooks
+                    const scale = useTransform(scrollYProgress,
+                        [start - 0.1, end + 0.1],
+                        [1.1, 1]
+                    );
+
+                    return (
                         <motion.div
-                            style={{ scaleY, transformOrigin: 'top' }}
-                            className="absolute top-0 left-0 w-full bg-gradient-to-b from-sky-500 via-indigo-500 to-purple-500 origin-top h-full"
-                        />
+                            key={index}
+                            style={{ opacity, scale }}
+                            className="absolute inset-0"
+                        >
+                            <SectionBackground
+                                src={step.image || ""}
+                                alt={step.title}
+                                opacity={0.15} // Dimmed/Tenue as requested
+                                overlayClassName="bg-neutral-950/80"
+                            />
+                        </motion.div>
+                    );
+                })}
+
+                {/* Global Ambient Glow */}
+                <div className="absolute inset-0 bg-gradient-to-b from-neutral-950 via-transparent to-neutral-950" />
+            </div>
+
+            {/* CONTENT LAYER */}
+            <div className="relative z-10 -mt-[100vh]">
+                <div className="container px-4 md:px-6 max-w-6xl mx-auto">
+                    {/* Section Header */}
+                    <div className="h-screen flex flex-col justify-center items-center text-center">
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            className="inline-block px-4 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-500 text-[10px] font-black uppercase tracking-[0.4em] mb-6"
+                        >
+                            Metodología Evo
+                        </motion.div>
+                        <motion.h2
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            className="text-5xl md:text-8xl font-black uppercase italic tracking-tighter text-white mb-8"
+                        >
+                            El Proceso <span className="text-gold-500">EVO</span>
+                        </motion.h2>
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.1 }}
+                            className="text-neutral-400 max-w-3xl mx-auto font-light text-xl italic leading-relaxed"
+                        >
+                            Ingeniería y precisión en cada etapa. No saltamos pasos; cada detalle es auditado para garantizar un resultado de exhibición absoluta.
+                        </motion.p>
                     </div>
 
-                    <div className="space-y-12 md:space-y-24">
-                        {steps.map((step, index) => (
-                            <TimelineItem
-                                key={index}
-                                step={step}
-                                index={index}
-                                total={steps.length}
+                    <div className="relative pb-[50vh]">
+                        {/* Central Golden Thread */}
+                        <div className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-[1px] md:-translate-x-1/2 bg-white/5 h-full rounded-full">
+                            <motion.div
+                                style={{ scaleY, transformOrigin: 'top' }}
+                                className="absolute top-0 left-0 w-full bg-gradient-to-b from-gold-500 via-amber-600 to-transparent origin-top h-full shadow-[0_0_20px_rgba(245,158,11,0.6)]"
                             />
-                        ))}
+                        </div>
+
+                        {/* Timeline Items */}
+                        <div className="space-y-[30vh]">
+                            {steps.map((step, index) => (
+                                <TimelineItem
+                                    key={index}
+                                    step={step}
+                                    index={index}
+                                    total={steps.length}
+                                />
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -82,54 +128,72 @@ function TimelineItem({ step, index, total }: { step: ProcessStep; index: number
         offset: ['start end', 'center center'],
     });
 
-    const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 0.6, 1]);
+    // Elegant motion values
+    const opacity = useTransform(scrollYProgress, [0, 0.4, 0.8, 1], [0, 0.5, 1, 1]);
+    const x = useTransform(scrollYProgress, [0, 1], [isEven ? -50 : 50, 0]); // Reduced movement to stay inside
     const scale = useTransform(scrollYProgress, [0, 1], [0.9, 1]);
-    const highlight = useTransform(scrollYProgress, [0.8, 1], ["rgba(163, 163, 163, 0.1)", "rgba(56, 189, 248, 0.15)"]);
-    const iconColor = useTransform(scrollYProgress, [0.8, 1], ["#525252", "#38bdf8"]);
+    const rotateY = useTransform(scrollYProgress, [0, 1], [isEven ? -10 : 10, 0]);
+
+    // Dynamic coloring based on proximity
+    const accentColor = useTransform(scrollYProgress, [0.7, 1], ["rgba(255, 255, 255, 0.1)", "rgba(245, 158, 11, 1)"]);
+    const cardBg = useTransform(scrollYProgress, [0.7, 1], ["rgba(255, 255, 255, 0.02)", "rgba(255, 255, 255, 0.05)"]);
 
     const Icon = step.icon as LucideIcon;
 
     return (
         <motion.div
             ref={ref}
-            style={{ opacity, scale }}
+            style={{ opacity, x, scale, perspective: 1000, rotateY }}
             className={cn(
-                "relative flex items-start md:items-center gap-6 md:gap-0",
+                "relative flex items-center md:items-center gap-8 md:gap-0",
                 isEven ? "md:flex-row" : "md:flex-row-reverse"
             )}
         >
-            {/* Node on the line */}
-            <div className="absolute left-[20px] md:left-1/2 w-4 h-4 -translate-x-1/2 rounded-full border-2 border-neutral-800 bg-neutral-950 z-20 flex items-center justify-center">
+            {/* Timeline Node */}
+            <div className="absolute left-[20px] md:left-1/2 w-4 h-4 -translate-x-1/2 rounded-full border border-white/20 bg-neutral-950 z-20 flex items-center justify-center">
                 <motion.div
-                    style={{ backgroundColor: iconColor }}
-                    className="w-2 h-2 rounded-full"
+                    style={{ backgroundColor: accentColor }}
+                    className="w-1.5 h-1.5 rounded-full shadow-[0_0_10px_rgba(245,158,11,0.5)]"
                 />
             </div>
 
-            {/* Spacer for the other side on desktop */}
-            <div className="hidden md:block md:w-1/2" />
-
-            {/* Content Card */}
+            {/* Step Counter (Desktop) */}
             <div className={cn(
-                "pl-12 md:pl-0 w-full md:w-1/2",
-                isEven ? "md:pr-12 md:text-right" : "md:pl-12 md:text-left"
+                "hidden md:flex md:w-1/2 items-center",
+                isEven ? "justify-end pr-16" : "justify-start pl-16"
             )}>
+                <span className="text-[12rem] font-black text-white/[0.03] italic select-none">
+                    0{index + 1}
+                </span>
+            </div>
+
+            {/* Glass Card */}
+            <div className="pl-10 md:pl-0 w-full md:w-5/12">
                 <motion.div
-                    style={{ backgroundColor: highlight, borderColor: iconColor }}
-                    className="p-6 rounded-2xl border border-neutral-800/50 backdrop-blur-sm transition-colors duration-500"
+                    style={{ backgroundColor: cardBg, borderColor: accentColor }}
+                    className="group relative p-6 md:p-10 rounded-[40px] border border-white/5 backdrop-blur-3xl shadow-[0_40px_100px_rgba(0,0,0,0.5)] transition-all duration-700 overflow-hidden"
                 >
-                    <div className={cn(
-                        "flex items-center gap-3 mb-3",
-                        isEven ? "md:flex-row-reverse" : "md:flex-row"
-                    )}>
-                        <div className="p-2 rounded-lg bg-neutral-900/50 text-sky-400">
-                            <Icon size={20} />
+                    {/* Card Scan Line Effect */}
+                    <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-gold-500/20 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 origin-center" />
+
+                    <div className="flex items-center gap-5 mb-6">
+                        <div className="p-4 rounded-[20px] bg-white/5 text-gold-500 border border-white/10 group-hover:bg-gold-500 group-hover:text-black transition-all duration-500 flex-shrink-0">
+                            <Icon size={24} strokeWidth={1.5} />
                         </div>
-                        <h3 className="text-xl font-semibold text-neutral-100">{step.title}</h3>
+                        <div className="min-w-0">
+                            <h3 className="text-2xl md:text-3xl font-black uppercase italic tracking-tighter text-white leading-[0.9]">
+                                {step.title}
+                            </h3>
+                            <div className="w-10 h-[2px] bg-gold-500 mt-3 opacity-60" />
+                        </div>
                     </div>
-                    <p className="text-neutral-400 leading-relaxed text-sm md:text-base">
+
+                    <p className="text-neutral-400 leading-relaxed font-light text-base md:text-lg italic">
                         {step.description}
                     </p>
+
+                    {/* Step Number (Mobile only) */}
+                    <span className="absolute -top-4 -right-4 text-4xl font-black text-white/5 italic md:hidden">0{index + 1}</span>
                 </motion.div>
             </div>
         </motion.div>

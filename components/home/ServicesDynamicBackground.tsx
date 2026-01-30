@@ -9,17 +9,17 @@ interface ServicesDynamicBackgroundProps {
 
 const backgroundImages = [
     {
-        src: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop",
+        src: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=2070&auto=format&fit=crop", // Lamborghini
         alt: "Ceramic Coating Detail",
         position: "center"
     },
     {
-        src: "https://images.unsplash.com/photo-1621996659490-6213b5fe48bc?q=80&w=2070&auto=format&fit=crop",
+        src: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=2070&auto=format&fit=crop", // Porsche
         alt: "PPF Protection",
         position: "center"
     },
     {
-        src: "https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=2070&auto=format&fit=crop",
+        src: "https://images.unsplash.com/photo-1607604318146-2f98642ba5ba?q=80&w=2070&auto=format&fit=crop", // Interior
         alt: "Luxury Interior Detailing",
         position: "center center"
     }
