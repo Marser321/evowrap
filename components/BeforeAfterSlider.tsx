@@ -11,13 +11,15 @@ interface BeforeAfterSliderProps {
     afterImage: string;
     altText: string;
     className?: string;
+    priority?: boolean;
 }
 
 export default function BeforeAfterSlider({
     beforeImage,
     afterImage,
     altText,
-    className
+    className,
+    priority = false
 }: BeforeAfterSliderProps) {
     const [sliderPosition, setSliderPosition] = useState(50);
     const [isDragging, setIsDragging] = useState(false);
@@ -64,7 +66,7 @@ export default function BeforeAfterSlider({
                     alt={`${altText} - Antes`}
                     fill
                     className="object-cover"
-                    priority
+                    priority={priority}
                     draggable={false}
                 />
                 <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10 z-10">
@@ -85,7 +87,7 @@ export default function BeforeAfterSlider({
                     alt={`${altText} - Después`}
                     fill
                     className="object-cover"
-                    priority
+                    priority={priority}
                     draggable={false}
                 />
 
