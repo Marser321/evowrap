@@ -42,11 +42,49 @@ export function calculateMaintenance(serviceType: string, location: LocationCont
     };
 }
 
-export const detectLocationMock = (): LocationContext => {
-    // In a real app, uses Geolocation API or Supabase user profile
-    // Mocking 'Punta del Este' for the demo
-    return {
-        city: 'Punta del Este',
-        isCoastal: true
-    };
-};
+export async function detectLocation(): Promise<LocationContext> {
+    return new Promise((resolve) => {
+        if (typeof navigator === 'undefined' || !navigator.geolocation) {
+            console.warn("Geolocation is not supported or not available.");
+            // Default fallback
+            resolve({ city: 'Montevideo', isCoastal: true });
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(async (position) => {
+            const { latitude, longitude } = position.coords;
+            try {
+                // Using OpenStreetMap Nominatim API for reverse geocoding
+                const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`, {
+                    headers: {
+                        'User-Agent': 'EvoWrapApp/1.0' // Required by Nominatim
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Geocoding failed');
+                }
+
+                const data = await response.json();
+
+                // Extract city/town/village
+                const city = data.address.city || data.address.town || data.address.village || data.address.county || 'Unknown';
+                const state = data.address.state || '';
+
+                // Determine coastal status based on Uruguayan departments
+                // Coastal departments: Maldonado, Rocha, Canelones, Montevideo, San José, Colonia
+                const coastalStates = ['Maldonado', 'Rocha', 'Canelones', 'Montevideo', 'San José', 'Colonia'];
+                const isCoastal = coastalStates.some(s => state.includes(s)) || coastalStates.some(s => city.includes(s));
+
+                resolve({ city, isCoastal });
+            } catch (error) {
+                console.error("Error fetching location details:", error);
+                // Fallback on error
+                resolve({ city: 'Montevideo', isCoastal: true });
+            }
+        }, (error) => {
+            console.warn("Geolocation permission denied or failed:", error);
+            resolve({ city: 'Montevideo', isCoastal: true });
+        });
+    });
+}
