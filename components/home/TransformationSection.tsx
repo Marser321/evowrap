@@ -88,13 +88,13 @@ export default function TransformationSection() {
                     >
                         <motion.h3
                             variants={fadeUp}
-                            className="text-4xl md:text-6xl font-black uppercase italic mb-4"
+                            className="text-3xl md:text-6xl font-black uppercase italic mb-4"
                         >
                             Transformación
                         </motion.h3>
 
                         <motion.div variants={slamIn} className="relative inline-block">
-                            <span className="text-6xl md:text-8xl font-black uppercase italic text-gold-500 drop-shadow-[0_0_25px_rgba(245,158,11,0.6)]">
+                            <span className="text-5xl md:text-8xl font-black uppercase italic text-gold-500 drop-shadow-[0_0_25px_rgba(245,158,11,0.6)]">
                                 TOTAL
                             </span>
                             {/* Sparks / Energy Burst */}

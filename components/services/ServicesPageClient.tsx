@@ -113,7 +113,7 @@ export default function ServicesPageClient({ data }: ServicesPageClientProps) {
                                 src={service.image}
                                 alt={service.title}
                                 opacity={0.6}
-                                overlayClassName="bg-gradient-to-b from-black/90 via-black/30 to-black/95"
+                                overlayClassName="bg-gradient-to-b from-black/80 via-black/10 to-black/90"
                             />
                         </motion.div>
                     );
@@ -203,65 +203,78 @@ export default function ServicesPageClient({ data }: ServicesPageClientProps) {
                             }}
                             className="relative max-w-2xl bg-black/60 backdrop-blur-3xl p-8 md:p-14 rounded-[50px] border border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.8)] group overflow-hidden"
                         >
-                            {/* Golden Scan Line Effect */}
-                            <motion.div
-                                initial={{ top: "-100%" }}
-                                whileInView={{ top: "200%" }}
-                                transition={{ duration: 1.5, ease: "easeInOut", delay: 0.5 }}
-                                className="absolute left-0 right-0 h-[200px] bg-gradient-to-b from-transparent via-gold-500/10 to-transparent -rotate-12 pointer-events-none"
-                            />
+                            {/* HOVER BACKGROUND IMAGE - Z-0 */}
+                            <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                                <img
+                                    src={service.image}
+                                    alt=""
+                                    className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[2s]"
+                                />
+                                <div className="absolute inset-0 bg-black/60" /> {/* Darken hover image */}
+                            </div>
 
-                            <div className="flex items-center gap-6 mb-8">
+                            {/* CONTENT WRAPPER - Z-10 */}
+                            <div className="relative z-10 h-full flex flex-col justify-between">
+                                {/* Golden Scan Line Effect */}
                                 <motion.div
-                                    whileHover={{ rotate: 15, scale: 1.1 }}
-                                    className="p-5 bg-gold-500 rounded-3xl text-black shadow-[0_0_20px_rgba(245,158,11,0.4)]"
-                                >
-                                    <service.icon size={40} />
-                                </motion.div>
-                                <div>
-                                    <h2 className="text-4xl md:text-7xl font-black uppercase italic tracking-tighter leading-none text-white">
-                                        {service.title}
-                                    </h2>
-                                    <p className="text-gold-500 font-bold uppercase tracking-[0.3em] text-[10px] md:text-sm mt-3">
-                                        {service.subtitle}
-                                    </p>
-                                </div>
-                            </div>
+                                    initial={{ top: "-100%" }}
+                                    whileInView={{ top: "200%" }}
+                                    transition={{ duration: 1.5, ease: "easeInOut", delay: 0.5 }}
+                                    className="absolute left-0 right-0 h-[200px] bg-gradient-to-b from-transparent via-gold-500/10 to-transparent -rotate-12 pointer-events-none"
+                                />
 
-                            <p className="text-lg md:text-2xl text-zinc-300 font-light leading-relaxed mb-10">
-                                {service.description}
-                            </p>
-
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-12">
-                                {service.stats.map((stat, i) => (
+                                <div className="flex items-center gap-6 mb-8">
                                     <motion.div
-                                        key={i}
-                                        initial={{ opacity: 0, y: 10 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 0.5 + (i * 0.1) }}
-                                        className="flex flex-col"
+                                        whileHover={{ rotate: 15, scale: 1.1 }}
+                                        className="p-5 bg-gold-500 rounded-3xl text-black shadow-[0_0_20px_rgba(245,158,11,0.4)]"
                                     >
-                                        <div className="h-[2px] w-8 bg-gold-500 mb-3" />
-                                        <span className="text-white font-black text-xs md:text-sm uppercase tracking-wider">{stat}</span>
+                                        <service.icon size={40} />
                                     </motion.div>
-                                ))}
-                            </div>
+                                    <div>
+                                        <h2 className="text-4xl md:text-7xl font-black uppercase italic tracking-tighter leading-none text-white">
+                                            {service.title}
+                                        </h2>
+                                        <p className="text-gold-500 font-bold uppercase tracking-[0.3em] text-[10px] md:text-sm mt-3">
+                                            {service.subtitle}
+                                        </p>
+                                    </div>
+                                </div>
 
-                            <div className="flex flex-col sm:flex-row gap-6">
-                                <Link
-                                    href={`/services/${service.id}`}
-                                    className="group relative overflow-hidden inline-flex items-center justify-center gap-3 px-10 py-5 bg-white text-black font-black uppercase tracking-widest text-[10px] rounded-full hover:bg-gold-500 transition-all duration-300 hover:scale-105 shadow-xl"
-                                >
-                                    <span className="relative z-10">Detalles Técnicos</span>
-                                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform relative z-10" />
-                                    <div className="absolute inset-0 bg-gold-500 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                                </Link>
-                                <Link
-                                    href="/booking"
-                                    className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-white/5 border border-white/10 text-white font-black uppercase tracking-widest text-[10px] rounded-full hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-md"
-                                >
-                                    Solicitar Turno
-                                </Link>
+                                <p className="text-lg md:text-2xl text-zinc-300 font-light leading-relaxed mb-10">
+                                    {service.description}
+                                </p>
+
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-12">
+                                    {service.stats.map((stat, i) => (
+                                        <motion.div
+                                            key={i}
+                                            initial={{ opacity: 0, y: 10 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.5 + (i * 0.1) }}
+                                            className="flex flex-col"
+                                        >
+                                            <div className="h-[2px] w-8 bg-gold-500 mb-3" />
+                                            <span className="text-white font-black text-xs md:text-sm uppercase tracking-wider">{stat}</span>
+                                        </motion.div>
+                                    ))}
+                                </div>
+
+                                <div className="flex flex-col sm:flex-row gap-6">
+                                    <Link
+                                        href={`/services/${service.id}`}
+                                        className="group relative overflow-hidden inline-flex items-center justify-center gap-3 px-10 py-5 bg-white text-black font-black uppercase tracking-widest text-[10px] rounded-full hover:bg-gold-500 transition-all duration-300 hover:scale-105 shadow-xl"
+                                    >
+                                        <span className="relative z-10">Detalles Técnicos</span>
+                                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform relative z-10" />
+                                        <div className="absolute inset-0 bg-gold-500 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                                    </Link>
+                                    <Link
+                                        href="/booking"
+                                        className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-white/5 border border-white/10 text-white font-black uppercase tracking-widest text-[10px] rounded-full hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-md"
+                                    >
+                                        Solicitar Turno
+                                    </Link>
+                                </div>
                             </div>
                         </motion.div>
                     </section>

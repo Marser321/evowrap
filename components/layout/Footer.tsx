@@ -94,6 +94,7 @@ export default function Footer() {
                         <div className="flex gap-8">
                             <Link href="#" className="text-zinc-600 hover:text-zinc-400 text-sm transition-colors">Privacidad</Link>
                             <Link href="#" className="text-zinc-600 hover:text-zinc-400 text-sm transition-colors">Términos</Link>
+                            <Link href="/admin" className="text-zinc-600 hover:text-gold-500 text-sm transition-colors font-medium">Panel Admin</Link>
                         </div>
                     </div>
 

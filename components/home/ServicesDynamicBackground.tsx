@@ -19,17 +19,20 @@ export default function ServicesDynamicBackground({ scrollYProgress, images }: S
     // Image 3: Fades in for Card 3
     const opacity3 = useTransform(scrollYProgress, [0.45, 0.55, 0.7, 0.8], [0, 1, 1, 0]);
 
-    // Image 4: Fades in for Card 4 (New)
-    const opacity4 = useTransform(scrollYProgress, [0.7, 0.8, 1, 1], [0, 1, 1, 1]);
+    // Image 4: Fades in for Card 4
+    const opacity4 = useTransform(scrollYProgress, [0.7, 0.8, 0.9, 0.95], [0, 1, 1, 0]);
 
-    const opacities = [opacity1, opacity2, opacity3, opacity4];
+    // Image 5: CTA / Evolution Section (Final)
+    const opacity5 = useTransform(scrollYProgress, [0.9, 0.95, 1, 1], [0, 1, 1, 1]);
+
+    const opacities = [opacity1, opacity2, opacity3, opacity4, opacity5];
 
     // Ensure we have 4 images or fallback
     const displayImages = images.length >= 4 ? images : [...images, ...images]; // naive fallback
 
     return (
         <div className="absolute inset-0 w-full h-full overflow-hidden">
-            {displayImages.slice(0, 4).map((src, index) => (
+            {displayImages.slice(0, 5).map((src, index) => (
                 <motion.div
                     key={index}
                     style={{ opacity: opacities[index] }}

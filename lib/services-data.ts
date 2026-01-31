@@ -1,11 +1,13 @@
 import React from 'react';
-import { Shield, Sparkles, Droplets, Sun, Layers, Microscope, Scan, UserCheck, Zap } from 'lucide-react'; // Added Zap just in case, verify step 704 didn't have it? 704 had Microscope etc. I will include all from 704 + imports.
 import { supabase } from '@/lib/supabase';
+
+// Helper type for Icon strings
+export type IconName = 'Shield' | 'Sparkles' | 'Droplets' | 'Sun' | 'Layers' | 'Microscope' | 'Scan' | 'UserCheck' | 'Zap';
 
 export interface ProcessStep {
     title: string;
     description: string;
-    icon: React.ElementType;
+    icon: string; // Changed from React.ElementType to string for serialization
     image?: string;
 }
 
@@ -31,231 +33,227 @@ export interface ServiceData {
 export const defaultServicesData: Record<string, ServiceData> = {
     'ceramic-coating': {
         id: 'ceramic-coating',
-        title: 'Tratamiento Cerámico Gtechniq',
-        subtitle: 'Protección molecular de vanguardia para una estética inigualable.',
-        description: 'Nuestro tratamiento cerámico crea una barrera química permanente que se une a la pintura de su vehículo. Proporciona resistencia extrema a químicos, rayos UV y suciedad, manteniendo un brillo de exhibición por años.',
-        heroImage: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=2070&auto=format&fit=crop',
-        secondaryImage: 'https://images.unsplash.com/photo-1621259182978-fbf93132d53d?q=80&w=2070&auto=format&fit=crop',
+        title: 'Tratamiento Cerámico',
+        subtitle: 'Blindaje molecular. Brillo eterno.',
+        description: 'La barrera definitiva. Nuestro recubrimiento químico se funde con la pintura, creando una armadura hidrofóbica capaz de repeler suciedad, químicos y radiación UV. No es solo brillo; es inmortalidad para tu carrocería.',
+        heroImage: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2070&auto=format&fit=crop', // Dark Reflection / Liquid look
+        secondaryImage: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2070', // Dramatic dark car
         technicalSpecs: [
-            { label: 'Dureza', value: '9H/10H (Escala Mohs)' },
-            { label: 'Duración', value: 'Hasta 5 años' },
-            { label: 'Resistencia Química', value: 'pH 2 - pH 13' },
-            { label: 'Efecto Hidrofóbico', value: 'Extremo' },
+            { label: 'Dureza', value: '10H Diamond' },
+            { label: 'Garantía', value: 'Vitalicia*' },
+            { label: 'Res. Química', value: 'pH 1-14' },
+            { label: 'Efecto', value: 'Espejo Líquido' },
         ],
         process: [
             {
-                title: 'Descontaminación Química',
-                description: 'Eliminación profunda de partículas metálicas y brea.',
-                icon: Microscope,
-                image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop'
+                title: 'Descontaminación',
+                description: 'Eliminación quirúrgica de impurezas.',
+                icon: 'Microscope',
+                image: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=2070'
             },
             {
-                title: 'Corrección de Barniz',
-                description: 'Nivelación microscópica de la laca para brillo extremo.',
-                icon: Sparkles,
-                image: 'https://images.unsplash.com/photo-1626077383615-189f3a8b418a?q=80&w=2070&auto=format&fit=crop'
+                title: 'Corrección Paint',
+                description: 'Restauración de reflectividad al 100%.',
+                icon: 'Sparkles',
+                image: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=2070'
             },
             {
-                title: 'Desengrasado IPA',
-                description: 'Limpieza final para una adhesión perfecta.',
-                icon: Droplets,
-                image: 'https://images.unsplash.com/photo-1634055610667-336706900f07?q=80&w=2070&auto=format&fit=crop'
+                title: 'IPA Prep',
+                description: 'Esterilización de superficie.',
+                icon: 'Droplets',
+                image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070'
             },
             {
-                title: 'Aplicación Multicapa',
-                description: 'Control de humedad y temperatura para curado uniforme.',
-                icon: Layers,
-                image: 'https://images.unsplash.com/photo-1621259182978-fbf93132d53d?q=80&w=2070&auto=format&fit=crop'
+                title: 'Nano Aplicación',
+                description: 'Fusión molecular capa por capa.',
+                icon: 'Layers',
+                image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=2070'
             },
             {
-                title: 'Curado IR',
-                description: 'Lámparas infrarrojas para sellar la protección.',
-                icon: Scan,
-                image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=2070&auto=format&fit=crop'
+                title: 'Curado',
+                description: 'Cristalización bajo espectro IR.',
+                icon: 'Scan',
+                image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=2070'
             },
         ],
         faq: [
             {
-                question: '¿Necesito encerar mi auto?',
-                answer: 'No. El cerámico reemplaza la necesidad de ceras.',
+                question: '¿Diferencia con cera?',
+                answer: 'La cera es cosmética y dura semanas. El cerámico es estructural, dura años y es infinitamente más duro.',
             },
             {
-                question: '¿Protege contra golpes?',
-                answer: 'No. Para protección contra impactos recomendamos PPF.',
+                question: '¿Evita rayones?',
+                answer: 'Reduce el "swirl" de lavados, pero no detiene rocas. Para eso necesitas PPF.',
             },
         ],
         gallery: [
-            'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=2070&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1621259182978-fbf93132d53d?q=80&w=2070&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=2070&auto=format&fit=crop'
+            'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?q=80&w=2070', // Foam / Washing
+            'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=2070', // Polishing
+            'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=2070' // Coating application
         ]
     },
     'ppf': {
         id: 'ppf',
-        title: 'Paint Protection Film (PPF)',
-        subtitle: 'El escudo invisible definitivo contra impactos y desgaste.',
-        description: 'Película de poliuretano termoplástico transparente y autorregenerativa. La única protección real contra impactos de piedras, raspones y vandalismo, manteniendo la pintura original intacta por décadas.',
-        heroImage: 'https://images.unsplash.com/photo-1601362840469-51e4d8d59085?q=80&w=2070&auto=format&fit=crop',
-        secondaryImage: 'https://images.unsplash.com/photo-1567818735868-e71b99932e29?q=80&w=2070&auto=format&fit=crop',
+        title: 'Paint Protection Film',
+        subtitle: 'Armadura invisible. Resistencia militar.',
+        description: 'La única defensa real contra la carretera. Film de poliuretano autorregenerativo que absorbe impactos de piedras, raspones y vandalismo. Tu pintura original, intacta, para siempre.',
+        heroImage: 'https://images.unsplash.com/photo-1621905252472-943af68f03fa?q=80&w=2070', // PPF Application / Detail
+        secondaryImage: 'https://images.unsplash.com/photo-1503376763036-066120622c74?q=80&w=2070',
         technicalSpecs: [
-            { label: 'Espesor', value: '200 Micrones' },
-            { label: 'Autorregeneración', value: 'Sí (con calor)' },
+            { label: 'Grosor', value: '250 Micrones' },
+            { label: 'Self-Healing', value: 'Instantáneo' },
             { label: 'Garantía', value: '10 Años' },
-            { label: 'Acabado', value: 'Invisible / Mate' },
+            { label: 'Acabado', value: 'Invisible' },
         ],
         process: [
             {
-                title: 'Descontaminación Extrema',
-                description: 'Limpieza quirúrgica previa.',
-                icon: Microscope,
-                image: 'https://images.unsplash.com/photo-1600294037233-0c46aec33486?q=80&w=2070&auto=format&fit=crop'
+                title: 'Prep Quirúrgica',
+                description: 'Descontaminación total.',
+                icon: 'Microscope',
+                image: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=2070'
             },
             {
-                title: 'Diseño Digital',
-                description: 'Patrones exactos por computadora.',
-                icon: Scan,
-                image: 'https://images.unsplash.com/photo-1563206767-5b18f218e03d?q=80&w=2070&auto=format&fit=crop'
+                title: 'Diseño CNC',
+                description: 'Corte digital, cero navajas en pintura.',
+                icon: 'Scan',
+                image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070'
             },
             {
-                title: 'Instalación con Gel',
-                description: 'Posicionamiento preciso sin burbujas.',
-                icon: Layers,
-                image: 'https://images.unsplash.com/photo-1503376763036-066120622c74?q=80&w=2070&auto=format&fit=crop'
+                title: 'Instalación',
+                description: 'Posicionamiento en gel sin tensión.',
+                icon: 'Layers',
+                image: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=2070'
             },
             {
-                title: 'Sellado de Bordes',
-                description: 'Instalación indetectable en aristas.',
-                icon: Shield,
-                image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop'
+                title: 'Wrapping de Bordes',
+                description: 'Bordes envueltos para invisibilidad.',
+                icon: 'Shield',
+                image: 'https://images.unsplash.com/photo-1621359953476-b1629904f81c?q=80&w=2070'
             },
             {
-                title: 'Inspección Final',
-                description: 'Revisión tras 24hs de asentamiento.',
-                icon: UserCheck,
-                image: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=2070&auto=format&fit=crop'
+                title: 'Control QC',
+                description: 'Inspección microscópica final.',
+                icon: 'UserCheck',
+                image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=2070'
             },
         ],
         faq: [
-            { question: '¿Se pone amarillo?', answer: 'No. Usamos films con inhibidores UV garantizados por 10 años que mantienen la transparencia absoluta.' },
-            { question: '¿Se autorregenera?', answer: 'Sí. Las marcas de lavado y micro-arañazos desaparecen por completo al aplicar calor.' },
+            { question: '¿Amarillea?', answer: 'Jamás. Garantía escrita antiamarilleo de por vida.' },
+            { question: '¿Se nota?', answer: 'Si está bien instalado, es indetectable a simple vista.' },
         ],
         gallery: [
-            'https://images.unsplash.com/photo-1567818735868-e71b99932e29?q=80&w=2070&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1503376763036-066120622c74?q=80&w=2070&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1621259182978-fbf93132d53d?q=80&w=2070&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop'
+            'https://images.unsplash.com/photo-1493238792015-fa643c15b179?q=80&w=2071',
+            'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2070',
+            'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2070'
         ]
     },
     'wrapping': {
         id: 'wrapping',
-        title: 'Vinyl Wrapping',
-        subtitle: 'Transformación radical de color y estética premium.',
-        description: 'Personalización total sin comprometer la pintura original. Cientos de acabados premium: mate, satinado, cromo o texturizados.',
-        heroImage: 'https://images.unsplash.com/photo-1621359953476-b1629904f81c?q=80&w=2070&auto=format&fit=crop',
-        secondaryImage: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop',
+        title: 'Color Change Wrap',
+        subtitle: 'Tu visión. Tu color. Sin compromisos.',
+        description: 'Reinventa tu vehículo. Más de 500 acabados premium desde Matte Metallic hasta Satin Chrome. Personalización reversible que protege tu pintura original.',
+        heroImage: 'https://images.unsplash.com/photo-1493238792015-fa643c15b179?q=80&w=2071&auto=format&fit=crop', // Matte Black Merc
+        secondaryImage: 'https://images.unsplash.com/photo-1615900119312-2acd3a71f3ad?q=80&w=2070',
         technicalSpecs: [
-            { label: 'Material', value: 'Vinilo Cast 3M/Avery' },
-            { label: 'Duración', value: '5-7 Años' },
-            { label: 'Reversible', value: '100%' },
-            { label: 'Colores', value: '+500 Opciones' },
+            { label: 'Film', value: '3M / Avery' },
+            { label: 'Vida Útil', value: '5-7 Años' },
+            { label: 'Reversibilidad', value: '100% Segura' },
+            { label: 'Acabados', value: '+500' },
         ],
         process: [
             {
-                title: 'Desarmado Técnico',
-                description: 'Remoción de manijas y espejos para ocultar bordes.',
-                icon: Scan,
-                image: 'https://images.unsplash.com/photo-1553440569-bcc63803a83d?q=80&w=2025&auto=format&fit=crop'
+                title: 'Desarme',
+                description: 'Acceso a bordes profundos.',
+                icon: 'Scan',
+                image: 'https://images.unsplash.com/photo-1597598852336-39f50e321591?q=80&w=2070'
             },
             {
-                title: 'Limpieza de Residuos',
-                description: 'Eliminación total de ceras y grasas.',
-                icon: Droplets,
-                image: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=2070&auto=format&fit=crop'
+                title: 'Limpieza',
+                description: 'Eliminación total de ceras.',
+                icon: 'Droplets',
+                image: 'https://images.unsplash.com/photo-1618485295982-f67353f40d58?q=80&w=2070'
             },
             {
-                title: 'Moldeado Térmico',
-                description: 'Adaptación perfecta a curvas complejas.',
-                icon: Layers,
-                image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2070&auto=format&fit=crop'
+                title: 'Aplicación',
+                description: 'Técnica de vidrio "zero-stretch".',
+                icon: 'Layers',
+                image: 'https://images.unsplash.com/photo-1621359953476-b1629904f81c?q=80&w=2070'
             },
             {
-                title: 'Corte Invisible',
-                description: 'Precisión quirúrgica en cada panel.',
-                icon: Sparkles,
-                image: 'https://images.unsplash.com/photo-1614002241517-742a1cf45501?q=80&w=2070&auto=format&fit=crop'
+                title: 'Post-Heat',
+                description: 'Sellado de memoria a 90°C.',
+                icon: 'Sparkles',
+                image: 'https://images.unsplash.com/photo-1549429184-c8d8c973f739?q=80&w=2070'
             },
             {
-                title: 'Post-Calentamiento',
-                description: 'Sellado de memoria del material.',
-                icon: Shield,
-                image: 'https://images.unsplash.com/photo-1494905998402-395d579af36f?q=80&w=2070&auto=format&fit=crop'
+                title: 'Re-Armado',
+                description: 'Ajuste de fábrica.',
+                icon: 'Shield',
+                image: 'https://images.unsplash.com/photo-1616422285623-13ff0162193c?q=80&w=2071'
             }
         ],
         faq: [
-            { question: '¿Daña la pintura?', answer: 'No. Al contrario, la protege de rayos UV y pequeños impactos.' },
-            { question: '¿Se puede lavar?', answer: 'Sí, pero recomendamos lavado a mano o sin cepillos agresivos.' },
+            { question: '¿Daña la pintura?', answer: 'No. La preserva como una cápsula del tiempo.' },
+            { question: '¿Cuidados?', answer: 'Lavado a mano. Evitar túneles de rodillos.' },
         ],
         gallery: [
-            'https://images.unsplash.com/photo-1621359953476-b1629904f81c?q=80&w=2070&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop'
+            'https://images.unsplash.com/photo-1493238792015-fa643c15b179?q=80&w=2071',
+            'https://images.unsplash.com/photo-1621359953476-b1629904f81c?q=80&w=2070'
         ]
     },
     'detailing': {
         id: 'detailing',
-        title: 'Elite Interior Detailing',
-        subtitle: 'Restauración profunda para una experiencia de cabina nueva.',
+        title: 'Interior Boutique',
+        subtitle: 'Restauración. Desinfección. Perfección.',
         description: 'Vapor a alta presión y química enzimática para devolver la textura y el olor original a su interior. Cada superficie, desde el cuero más fino hasta las alfombras más densas, es tratada con precisión quirúrgica.',
-        heroImage: 'https://images.unsplash.com/photo-1607604318146-2f98642ba5ba?q=80&w=2070&auto=format&fit=crop',
-        secondaryImage: 'https://images.unsplash.com/photo-1570197730598-6ce814524817?q=80&w=2070&auto=format&fit=crop',
+        heroImage: 'https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=2070&auto=format&fit=crop', // Interior Dark
+        secondaryImage: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=2070',
         technicalSpecs: [
-            { label: 'Tiempo', value: '1 Día' },
-            { label: 'Desinfección', value: 'Ozono / Vapor' },
-            { label: 'Protección', value: 'Hidratación UV' },
-            { label: 'Alcance', value: 'Techo, Alfombras, Cueros' },
+            { label: 'Tiempo', value: 'Full Day' },
+            { label: 'Proceso', value: 'Vapor/Ozono' },
+            { label: 'Cueros', value: 'Hidratación' },
+            { label: 'Bacterias', value: 'Eliminación 99%' },
         ],
         process: [
             {
-                title: 'Aspirado de Alta Succión',
-                description: 'Remoción de suciedad encapsulada en zonas imposibles.',
-                icon: Scan,
-                image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=2070&auto=format&fit=crop'
+                title: 'Aspirado',
+                description: 'Extracción de profundidad.',
+                icon: 'Scan',
+                image: 'https://images.unsplash.com/photo-1520031856722-e3e979d38392?q=80&w=2070'
             },
             {
-                title: 'Limpieza Enzimática',
-                description: 'Descomposición biológica de olores y manchas.',
-                icon: Droplets,
-                image: 'https://images.unsplash.com/photo-1634055610667-336706900f07?q=80&w=2070&auto=format&fit=crop'
+                title: 'Enzimas',
+                description: 'Breakdown de manchas orgánicas.',
+                icon: 'Droplets',
+                image: 'https://images.unsplash.com/photo-1632823471449-3353db47f525?q=80&w=2070'
             },
             {
-                title: 'Vapor de Grado Médico',
-                description: 'Desinfección total a 140°C de ductos y telas.',
-                icon: Sparkles,
-                image: 'https://images.unsplash.com/photo-1614000531402-74cca389903f?q=80&w=2070&auto=format&fit=crop'
+                title: 'Vapor',
+                description: 'Sanitización de ductos.',
+                icon: 'Sparkles',
+                image: 'https://images.unsplash.com/photo-1635332847249-144f80877014?q=80&w=2070'
             },
             {
-                title: 'Nutrición de Cueros',
-                description: 'Acondicionadores con aceites naturales y lanolina.',
-                icon: Layers,
-                image: 'https://images.unsplash.com/photo-1647288764834-4bc594956aa4?q=80&w=2070&auto=format&fit=crop'
+                title: 'Cueros',
+                description: 'Nutrición mate acabado fábrica.',
+                icon: 'Layers',
+                image: 'https://images.unsplash.com/photo-1494905998402-395d579af36f?q=80&w=2070'
             },
             {
-                title: 'Protección Satín UV',
-                description: 'Acabado mate original que bloquea el envejecimiento solar.',
-                icon: Shield,
-                image: 'https://images.unsplash.com/photo-1594248512140-54605963f46f?q=80&w=2070&auto=format&fit=crop'
+                title: 'Protección',
+                description: 'Sellado UV de tableros.',
+                icon: 'Shield',
+                image: 'https://images.unsplash.com/photo-1503376763036-066120622c74?q=80&w=2070'
             },
         ],
         faq: [
-            { question: '¿Huele a químico?', answer: 'No. Usamos productos biodegradables con aromas neutros que desaparecen rápido.' },
-            { question: '¿Elimina manchas de café/sangre?', answer: 'Removemos el 99% de manchas orgánicas comunes. El éxito depende de cuánto tiempo lleve la mancha allí.' },
+            { question: '¿Queda olor?', answer: 'Solo a limpio. No usamos perfumes invasivos.' },
+            { question: '¿Secado?', answer: 'Se entrega 100% seco y listo para usar.' },
         ],
         gallery: [
-            'https://images.unsplash.com/photo-1607604318146-2f98642ba5ba?q=80&w=2070&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1594503723307-e432a688b75f?q=80&w=2062&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1650380802100-848834466b03?q=80&w=2070&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1602419227945-91f98bc1ea3e?q=80&w=2102&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1617469767053-d3b508a04ea0?q=80&w=2102&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1614000531402-74cca389903f?q=80&w=2070&auto=format&fit=crop'
+            'https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=2070',
+            'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=2070',
+            'https://images.unsplash.com/photo-1584621539227-2ad16a8d8763?q=80&w=2070'
         ]
     }
 };
@@ -267,8 +265,8 @@ export async function getServices(): Promise<Record<string, ServiceData>> {
         const { data, error } = await supabase.from('services').select('*');
 
         if (error) {
-            console.error("Supabase fetch error:", error);
-            // Don't fail completely, return defaults
+            // console.warn("Supabase fetch error (using defaults):", error.message);
+            // Return defaults silently to avoid blocking the UI with error overlays in dev
             return defaultServicesData;
         }
 

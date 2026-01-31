@@ -66,7 +66,10 @@ export default function ServicesHorizontal({ data }: ServicesHorizontalProps) {
             <div className="sticky top-0 h-screen w-full overflow-hidden">
                 <ServicesDynamicBackground
                     scrollYProgress={scrollYProgress}
-                    images={services.map(s => s.image)}
+                    images={[
+                        ...services.map(s => s.image),
+                        'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2070&auto=format&fit=crop' // Automotive/Abstract Dark
+                    ]}
                 />
             </div>
 
@@ -82,10 +85,10 @@ export default function ServicesHorizontal({ data }: ServicesHorizontalProps) {
                             style={{ x: titleX }}
                             className="w-[85vw] md:w-[30vw] shrink-0 pr-4 md:pr-10 relative z-10"
                         >
-                            <h2 className="text-4xl md:text-7xl font-black text-white mb-4 leading-tight drop-shadow-lg">
+                            <h2 className="text-3xl md:text-7xl font-black text-white mb-4 leading-tight drop-shadow-lg break-words">
                                 Nuestros <br /><span className="text-gold-500 stroke-text">Servicios</span>
                             </h2>
-                            <p className="text-white/80 text-base md:text-lg font-light backdrop-blur-sm p-4 rounded-xl border border-white/10 bg-black/20 max-w-md">
+                            <p className="text-white/80 text-sm md:text-lg font-light backdrop-blur-sm p-4 rounded-xl border border-white/10 bg-black/20 max-w-md">
                                 Desliza para explorar la gama completa de protección y estética de alto nivel.
                             </p>
                             <div className="mt-8 flex items-center gap-4 text-sm font-bold text-white/50">
@@ -105,13 +108,13 @@ export default function ServicesHorizontal({ data }: ServicesHorizontalProps) {
                                 transition={{ duration: 0.8, delay: 0.2 }}
                                 className="relative z-10"
                             >
-                                <h2 className="text-4xl md:text-6xl font-black text-white uppercase mb-6 leading-none drop-shadow-lg">
+                                <h2 className="text-3xl md:text-6xl font-black text-white uppercase mb-6 leading-none drop-shadow-lg break-words">
                                     ¿Tu Auto <br />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-500 to-amber-300">
                                         Está Listo?
                                     </span>
                                 </h2>
-                                <p className="text-lg md:text-xl text-neutral-300 mb-8 max-w-md font-light">
+                                <p className="text-sm md:text-xl text-neutral-300 mb-8 max-w-md font-light">
                                     El siguiente nivel de estética te espera.
                                 </p>
                                 <Link
@@ -134,22 +137,22 @@ export default function ServicesHorizontal({ data }: ServicesHorizontalProps) {
                         />
                     </div>
 
-                    {/* Dynamic Background Text - Now includes EVOLUTION for the CTA */}
-                    <div className="absolute right-10 bottom-24 z-0 pointer-events-none text-right hidden lg:block mix-blend-overlay">
+                    {/* Dynamic Background Text - Z-Index boosted and mix-blend removed for visibility */}
+                    <div className="absolute right-4 bottom-20 md:right-10 md:bottom-24 z-[5] pointer-events-none text-right md:block">
                         <motion.div style={{ opacity: opacityText1 }} className="absolute bottom-0 right-0 w-max">
-                            <h3 className="text-9xl font-black text-white/10 uppercase leading-none">Protection</h3>
+                            <h3 className="text-6xl md:text-9xl font-black text-white/5 uppercase leading-none">Protection</h3>
                         </motion.div>
 
                         <motion.div style={{ opacity: opacityText2 }} className="absolute bottom-0 right-0 w-max">
-                            <h3 className="text-9xl font-black text-white/10 uppercase leading-none">Ceramic</h3>
+                            <h3 className="text-6xl md:text-9xl font-black text-white/5 uppercase leading-none">Ceramic</h3>
                         </motion.div>
 
                         <motion.div style={{ opacity: opacityText3 }} className="absolute bottom-0 right-0 w-max">
-                            <h3 className="text-9xl font-black text-white/10 uppercase leading-none">Detailing</h3>
+                            <h3 className="text-6xl md:text-9xl font-black text-white/5 uppercase leading-none">Detailing</h3>
                         </motion.div>
 
                         <motion.div style={{ opacity: opacityTextCTA }} className="absolute bottom-0 right-0 w-max">
-                            <h3 className="text-9xl font-black text-gold-500/20 uppercase leading-none">Evolution</h3>
+                            <h3 className="text-6xl md:text-9xl font-black text-gold-500/10 uppercase leading-none">Evolution</h3>
                         </motion.div>
                     </div>
                 </div>
@@ -164,31 +167,31 @@ function ServiceCard({ service }: { service: any }) {
         <div className="snap-center group relative h-[60vh] md:h-[70vh] w-[85vw] md:w-[40vw] shrink-0 overflow-hidden rounded-3xl border border-white/10 transition-all duration-700 hover:border-gold-500/50 hover:shadow-[0_0_50px_rgba(245,158,11,0.2)] bg-neutral-900/40 backdrop-blur-md">
 
             {/* 1. Base Glass Layer (Always visible, lets global background through) */}
-            <div className="absolute inset-0 bg-white/5 transition-opacity duration-500 group-hover:opacity-0" />
+            <div className="absolute inset-0 bg-neutral-900/60 transition-opacity duration-500 group-hover:opacity-0 z-0" />
 
             {/* 2. Specific Service Image (Reveals on Hover) */}
             <div
-                className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out group-hover:scale-105"
+                className="absolute inset-0 w-full h-full bg-cover bg-center opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out group-hover:scale-105 z-10"
                 style={{ backgroundImage: `url(${service.image})` }}
             >
-                {/* Inner Gradient Overlay for interactions */}
-                <div className="absolute inset-0 bg-neutral-950/20 mix-blend-multiply" />
+                <div className="absolute inset-0 bg-black/40" /> {/* Darken image for text readability */}
             </div>
 
             {/* 3. Text Readability Gradients */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-90 transition-opacity duration-500" />
+            {/* 3. Text Readability Gradients - Lightened for better image visibility */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-60 z-20 pointer-events-none" />
 
             {/* Content */}
-            <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 z-20 translate-y-2 transition-transform duration-500 group-hover:translate-y-0">
+            <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 z-30 translate-y-2 transition-transform duration-500 group-hover:translate-y-0">
                 <div className={`mb-6 inline-flex p-4 rounded-2xl bg-black/40 border border-white/10 backdrop-blur-xl shadow-lg group-hover:scale-110 transition-transform duration-300 group-hover:border-gold-500/50 group-hover:bg-gold-500`}>
                     <Icon className="text-gold-500 w-8 h-8 md:w-10 md:h-10 group-hover:text-black transition-colors duration-300" />
                 </div>
 
-                <h3 className="text-3xl md:text-5xl font-black text-white mb-4 leading-none uppercase tracking-tight drop-shadow-md">
+                <h3 className="text-2xl md:text-5xl font-black text-white mb-4 leading-none uppercase tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] break-words">
                     {service.title}
                 </h3>
 
-                <p className="text-lg md:text-xl text-zinc-300 mb-8 max-w-sm font-light leading-relaxed group-hover:text-white transition-colors delay-100">
+                <p className="text-sm md:text-xl text-zinc-300 mb-8 max-w-sm font-light leading-relaxed group-hover:text-white transition-colors delay-100 line-clamp-4 md:line-clamp-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                     {service.description}
                 </p>
 
@@ -199,6 +202,6 @@ function ServiceCard({ service }: { service: any }) {
                     Ver Detalles <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
             </div>
-        </div>
+        </div >
     );
 }

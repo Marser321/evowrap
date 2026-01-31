@@ -5,14 +5,30 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import Image from 'next/image';
 import { ProcessStep } from '@/lib/services-data';
 import { cn } from '@/lib/utils';
-import { LucideIcon } from 'lucide-react';
+import { Shield, Sparkles, Droplets, Sun, Layers, Microscope, Scan, UserCheck, Zap, LucideIcon } from 'lucide-react';
 import SectionBackground from '@/components/ui/SectionBackground';
+
+// Icon Mapping
+const iconMap: Record<string, LucideIcon> = {
+    Shield,
+    Sparkles,
+    Droplets,
+    Sun,
+    Layers,
+    Microscope,
+    Scan,
+    UserCheck,
+    Zap
+};
 
 interface ProcessTimelineProps {
     steps: ProcessStep[];
 }
 
 export function ProcessTimeline({ steps }: ProcessTimelineProps) {
+    // ... existing code ...
+    // ...
+    // ...
     const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -139,7 +155,7 @@ function TimelineItem({ step, index, total }: { step: ProcessStep; index: number
     const accentColor = useTransform(scrollYProgress, [0.7, 1], ["rgba(255, 255, 255, 0.1)", "rgba(245, 158, 11, 1)"]);
     const cardBg = useTransform(scrollYProgress, [0.7, 1], ["rgba(255, 255, 255, 0.02)", "rgba(255, 255, 255, 0.05)"]);
 
-    const Icon = step.icon as LucideIcon;
+    const Icon = iconMap[step.icon as string] || Sparkles;
 
     return (
         <motion.div

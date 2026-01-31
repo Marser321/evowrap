@@ -38,8 +38,8 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
                 <SectionBackground
                     src={service.heroImage}
                     alt={service.title}
-                    opacity={0.6}
-                    overlayClassName="bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-black/60"
+                    opacity={0.4}
+                    overlayClassName="bg-gradient-to-t from-neutral-950 via-neutral-950/20 to-black/40"
                     priority={true}
                 />
 
@@ -218,9 +218,9 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
             {/* CTA Section */}
             <section className="py-40 text-center px-4 relative">
                 <SectionBackground
-                    src="https://images.unsplash.com/photo-1503376763036-066120622c74?q=80&w=2070&auto=format&fit=crop"
-                    opacity={0.4}
-                    overlayClassName="bg-gradient-to-b from-neutral-950 via-neutral-950/40 to-black/95"
+                    src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=2070&auto=format&fit=crop"
+                    opacity={0.5}
+                    overlayClassName="bg-gradient-to-b from-neutral-950 via-neutral-950/60 to-black/95"
                 />
 
                 <div className="max-w-4xl mx-auto p-12 md:p-20 rounded-[60px] border border-white/10 backdrop-blur-3xl relative z-10 bg-black/40 shadow-[0_50px_100px_rgba(0,0,0,0.8)] overflow-hidden">
