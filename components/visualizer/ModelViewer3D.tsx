@@ -1,9 +1,11 @@
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment, ContactShadows, Stage } from '@react-three/drei';
-import CarModel, { FallbackCar } from './CarModel';
+import { OrbitControls, Environment } from '@react-three/drei';
+import * as THREE from 'three';
+import { useFrame } from '@react-three/fiber';
+import { useRef } from 'react';
 
 // Tipos de materiales disponibles
 export interface WrapMaterial {
@@ -30,78 +32,167 @@ interface ModelViewer3DProps {
     activeMaterial: WrapMaterial;
 }
 
-function LoadingSpinner({ material }: { material: WrapMaterial }) {
-    return <FallbackCar material={material} />;
+// Auto 3D simple inline para evitar problemas de importación
+function SimpleCar({ material }: { material: WrapMaterial }) {
+    const groupRef = useRef<THREE.Group>(null);
+
+    useFrame((state) => {
+        if (groupRef.current) {
+            groupRef.current.rotation.y = state.clock.elapsedTime * 0.3;
+        }
+    });
+
+    return (
+        <group ref={groupRef} position={[0, -0.5, 0]}>
+            {/* Cuerpo principal */}
+            <mesh position={[0, 0.4, 0]} castShadow>
+                <boxGeometry args={[3.5, 0.7, 1.6]} />
+                <meshStandardMaterial
+                    color={material.color}
+                    metalness={material.metalness}
+                    roughness={material.roughness}
+                />
+            </mesh>
+
+            {/* Capó */}
+            <mesh position={[1.2, 0.55, 0]} rotation={[0, 0, -0.15]} castShadow>
+                <boxGeometry args={[1.2, 0.5, 1.5]} />
+                <meshStandardMaterial
+                    color={material.color}
+                    metalness={material.metalness}
+                    roughness={material.roughness}
+                />
+            </mesh>
+
+            {/* Cabina */}
+            <mesh position={[-0.2, 1, 0]} castShadow>
+                <boxGeometry args={[1.8, 0.5, 1.4]} />
+                <meshStandardMaterial
+                    color={material.color}
+                    metalness={material.metalness}
+                    roughness={material.roughness}
+                />
+            </mesh>
+
+            {/* Vidrios */}
+            <mesh position={[-0.2, 1, 0]}>
+                <boxGeometry args={[1.75, 0.45, 1.35]} />
+                <meshStandardMaterial color="#111111" metalness={0.9} roughness={0.1} />
+            </mesh>
+
+            {/* Ruedas */}
+            <mesh position={[-1.1, 0, 0.85]} rotation={[Math.PI / 2, 0, 0]}>
+                <cylinderGeometry args={[0.38, 0.38, 0.25, 24]} />
+                <meshStandardMaterial color="#1a1a1a" />
+            </mesh>
+            <mesh position={[-1.1, 0, -0.85]} rotation={[Math.PI / 2, 0, 0]}>
+                <cylinderGeometry args={[0.38, 0.38, 0.25, 24]} />
+                <meshStandardMaterial color="#1a1a1a" />
+            </mesh>
+            <mesh position={[1.2, 0, 0.85]} rotation={[Math.PI / 2, 0, 0]}>
+                <cylinderGeometry args={[0.38, 0.38, 0.25, 24]} />
+                <meshStandardMaterial color="#1a1a1a" />
+            </mesh>
+            <mesh position={[1.2, 0, -0.85]} rotation={[Math.PI / 2, 0, 0]}>
+                <cylinderGeometry args={[0.38, 0.38, 0.25, 24]} />
+                <meshStandardMaterial color="#1a1a1a" />
+            </mesh>
+
+            {/* Luces delanteras */}
+            <mesh position={[1.75, 0.5, 0.55]}>
+                <boxGeometry args={[0.1, 0.15, 0.25]} />
+                <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={0.5} />
+            </mesh>
+            <mesh position={[1.75, 0.5, -0.55]}>
+                <boxGeometry args={[0.1, 0.15, 0.25]} />
+                <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={0.5} />
+            </mesh>
+
+            {/* Luces traseras */}
+            <mesh position={[-1.75, 0.5, 0.55]}>
+                <boxGeometry args={[0.1, 0.15, 0.25]} />
+                <meshStandardMaterial color="#ff0000" emissive="#ff0000" emissiveIntensity={0.8} />
+            </mesh>
+            <mesh position={[-1.75, 0.5, -0.55]}>
+                <boxGeometry args={[0.1, 0.15, 0.25]} />
+                <meshStandardMaterial color="#ff0000" emissive="#ff0000" emissiveIntensity={0.8} />
+            </mesh>
+        </group>
+    );
+}
+
+// Fallback de carga
+function LoadingBox() {
+    const meshRef = useRef<THREE.Mesh>(null);
+
+    useFrame((state) => {
+        if (meshRef.current) {
+            meshRef.current.rotation.x = state.clock.elapsedTime;
+            meshRef.current.rotation.y = state.clock.elapsedTime * 0.5;
+        }
+    });
+
+    return (
+        <mesh ref={meshRef}>
+            <boxGeometry args={[1, 1, 1]} />
+            <meshStandardMaterial color="#d4a017" wireframe />
+        </mesh>
+    );
 }
 
 export default function ModelViewer3D({ modelUrl, activeMaterial }: ModelViewer3DProps) {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) {
+        return (
+            <div className="w-full h-full flex items-center justify-center bg-zinc-900 rounded-3xl">
+                <p className="text-zinc-500">Inicializando 3D...</p>
+            </div>
+        );
+    }
+
     return (
         <div className="w-full h-full bg-gradient-to-b from-zinc-900 via-zinc-950 to-black rounded-3xl overflow-hidden">
             <Canvas
                 camera={{ position: [6, 3, 6], fov: 45 }}
-                shadows={true}
                 dpr={[1, 2]}
-                gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+                gl={{
+                    antialias: true,
+                    alpha: true,
+                    powerPreference: 'default',
+                    failIfMajorPerformanceCaveat: false
+                }}
             >
-                {/* Iluminación potente */}
-                <ambientLight intensity={0.6} />
-                <directionalLight
-                    position={[10, 10, 5]}
-                    intensity={1.5}
-                    castShadow={true}
-                    shadow-mapSize={1024}
-                />
-                <directionalLight
-                    position={[-10, 5, -5]}
-                    intensity={0.8}
-                />
-                <spotLight
-                    position={[0, 15, 0]}
-                    angle={0.3}
-                    penumbra={1}
-                    intensity={2}
-                    castShadow={true}
-                />
-                <pointLight position={[5, 5, 5]} intensity={0.5} />
-                <pointLight position={[-5, 5, -5]} intensity={0.5} />
+                {/* Iluminación fuerte */}
+                <ambientLight intensity={1} />
+                <directionalLight position={[10, 10, 5]} intensity={2} />
+                <directionalLight position={[-10, 5, -5]} intensity={1} />
+                <pointLight position={[0, 10, 0]} intensity={1.5} />
 
-                {/* Entorno HDRI para reflejos */}
-                <Environment preset="city" background={false} />
+                {/* Entorno */}
+                <Environment preset="city" />
 
                 {/* Auto */}
-                <Suspense fallback={<LoadingSpinner material={activeMaterial} />}>
-                    <CarModel url={modelUrl} material={activeMaterial} />
+                <Suspense fallback={<LoadingBox />}>
+                    <SimpleCar material={activeMaterial} />
                 </Suspense>
 
-                {/* Sombra de contacto */}
-                <ContactShadows
-                    position={[0, -1.4, 0]}
-                    opacity={0.6}
-                    scale={12}
-                    blur={3}
-                    far={6}
-                />
-
-                {/* Piso reflectante sutil */}
-                <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.5, 0]} receiveShadow={true}>
-                    <planeGeometry args={[50, 50]} />
-                    <meshStandardMaterial
-                        color="#0a0a0a"
-                        metalness={0.8}
-                        roughness={0.4}
-                        transparent={true}
-                        opacity={0.8}
-                    />
+                {/* Piso */}
+                <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.4, 0]}>
+                    <planeGeometry args={[30, 30]} />
+                    <meshStandardMaterial color="#0f0f0f" metalness={0.5} roughness={0.5} />
                 </mesh>
 
-                {/* Controles de órbita */}
+                {/* Controles */}
                 <OrbitControls
                     enablePan={false}
                     enableZoom={true}
                     minDistance={4}
                     maxDistance={12}
-                    minPolarAngle={Math.PI / 6}
-                    maxPolarAngle={Math.PI / 2.2}
                     autoRotate={false}
                 />
             </Canvas>
