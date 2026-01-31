@@ -1,135 +1,191 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import { Upload, RefreshCw, Palette, Download } from 'lucide-react';
+import { useState, useRef, Suspense } from 'react';
+import dynamic from 'next/dynamic';
+import { Upload, RefreshCw, Palette, Download, RotateCcw, Loader2, Car } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import MaterialSelector from './MaterialSelector';
+import { WRAP_MATERIALS, type WrapMaterial } from './ModelViewer3D';
 
-// Mock Filters
-const FILTERS = [
-    { id: 'original', name: 'Original', style: {} },
-    { id: 'matte-black', name: 'Matte Stealth', style: { filter: 'grayscale(100%) brightness(40%) contrast(120%)' } },
-    { id: 'nardo-grey', name: 'Nardo Grey', style: { filter: 'grayscale(100%) brightness(110%) contrast(90%)' } },
-    { id: 'satin-white', name: 'Satin White', style: { filter: 'grayscale(100%) brightness(180%) contrast(80%)' } },
-    { id: 'midnight-purple', name: 'Midnight Purple', style: { filter: 'sepia(100%) hue-rotate(240deg) saturate(300%) brightness(60%) contrast(120%)' } },
-    { id: 'race-red', name: 'Race Red', style: { filter: 'sepia(100%) hue-rotate(320deg) saturate(400%) brightness(90%) contrast(110%)' } },
-    { id: 'miami-blue', name: 'Miami Blue', style: { filter: 'sepia(100%) hue-rotate(150deg) saturate(300%) brightness(110%)' } },
-];
+// Dynamic import para evitar SSR issues con Three.js
+const ModelViewer3D = dynamic(() => import('./ModelViewer3D'), {
+    ssr: false,
+    loading: () => (
+        <div className="w-full h-full flex items-center justify-center bg-zinc-900 rounded-3xl">
+            <div className="text-center">
+                <Loader2 className="w-12 h-12 text-gold-500 animate-spin mx-auto mb-4" />
+                <p className="text-zinc-500 text-sm">Cargando visualizador 3D...</p>
+            </div>
+        </div>
+    ),
+});
+
+const DEFAULT_MODEL = '/models/demo-car.glb';
 
 export default function VisualizerStage() {
-    const [image, setImage] = useState<string>('https://images.unsplash.com/photo-1503376763036-066120622c74?q=80&w=2000&auto=format&fit=crop'); // Default Porsche
-    const [activeFilter, setActiveFilter] = useState(FILTERS[0]);
+    const [modelUrl, setModelUrl] = useState<string>(DEFAULT_MODEL);
+    const [activeMaterial, setActiveMaterial] = useState<WrapMaterial>(WRAP_MATERIALS[0]);
+    const [isUploading, setIsUploading] = useState(false);
+    const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
+            // Validar extensión
+            const validExtensions = ['.glb', '.gltf'];
+            const ext = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
+
+            if (!validExtensions.includes(ext)) {
+                alert('Por favor sube un archivo .glb o .gltf válido');
+                return;
+            }
+
+            setIsUploading(true);
             const url = URL.createObjectURL(file);
-            setImage(url);
-            setActiveFilter(FILTERS[0]); // Reset filter
+
+            // Simular pequeña carga para UX
+            setTimeout(() => {
+                setModelUrl(url);
+                setUploadedFileName(file.name);
+                setActiveMaterial(WRAP_MATERIALS[0]); // Reset material
+                setIsUploading(false);
+            }, 500);
         }
+    };
+
+    const handleReset = () => {
+        setModelUrl(DEFAULT_MODEL);
+        setUploadedFileName(null);
+        setActiveMaterial(WRAP_MATERIALS[0]);
     };
 
     return (
         <div className="flex flex-col lg:flex-row h-[85vh] gap-6 p-6">
 
-            {/* 1. Main Stage (Canvas) */}
+            {/* 1. Main Stage (3D Canvas) */}
             <div className="flex-1 relative rounded-3xl overflow-hidden bg-zinc-900 border border-white/5 shadow-2xl group">
 
-                {/* The Image */}
-                <div className="absolute inset-0 flex items-center justify-center bg-black">
-                    <motion.img
-                        key={image}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        src={image}
-                        alt="Vehicle Preview"
-                        className="w-full h-full object-contain transition-all duration-700 ease-in-out"
-                        style={activeFilter.style}
-                    />
-
-                    {/* Overlay for Texture (e.g. Matte Grain) if needed - Optional */}
-                    {activeFilter.id.includes('matte') && (
-                        <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay"
-                            style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/noise-lines.png")' }}
-                        />
+                {/* Loading overlay */}
+                <AnimatePresence>
+                    {isUploading && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="absolute inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center"
+                        >
+                            <div className="text-center">
+                                <Loader2 className="w-16 h-16 text-gold-500 animate-spin mx-auto mb-4" />
+                                <p className="text-white font-bold">Cargando modelo...</p>
+                            </div>
+                        </motion.div>
                     )}
-                </div>
+                </AnimatePresence>
+
+                {/* 3D Viewer */}
+                <ModelViewer3D modelUrl={modelUrl} activeMaterial={activeMaterial} />
 
                 {/* Floating Actions */}
-                <div className="absolute top-6 right-6 flex gap-2">
+                <div className="absolute top-6 right-6 flex gap-2 z-10">
                     <button
                         onClick={() => fileInputRef.current?.click()}
-                        className="p-3 rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 transition-colors border border-white/10 text-white"
-                        title="Subir Foto"
+                        className="p-3 rounded-full bg-black/60 backdrop-blur-md hover:bg-black/80 transition-colors border border-white/10 text-white group/btn"
+                        title="Subir Modelo 3D"
                     >
-                        <Upload className="w-5 h-5" />
+                        <Upload className="w-5 h-5 group-hover/btn:scale-110 transition-transform" />
                     </button>
                     <input
                         type="file"
                         ref={fileInputRef}
                         className="hidden"
-                        accept="image/*"
+                        accept=".glb,.gltf"
                         onChange={handleFileUpload}
                     />
                     <button
-                        onClick={() => setImage('https://images.unsplash.com/photo-1503376763036-066120622c74?q=80&w=2000&auto=format&fit=crop')}
-                        className="p-3 rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 transition-colors border border-white/10 text-white"
-                        title="Resetear Demo"
+                        onClick={handleReset}
+                        className="p-3 rounded-full bg-black/60 backdrop-blur-md hover:bg-black/80 transition-colors border border-white/10 text-white group/btn"
+                        title="Resetear a Demo"
                     >
-                        <RefreshCw className="w-5 h-5" />
+                        <RotateCcw className="w-5 h-5 group-hover/btn:scale-110 transition-transform" />
                     </button>
                 </div>
 
-                {/* Current Filter Badge */}
-                <div className="absolute bottom-6 left-6">
-                    <div className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-white font-mono text-sm uppercase tracking-widest flex items-center gap-2">
-                        <Palette className="w-4 h-4 text-indigo-500" />
-                        {activeFilter.name}
+                {/* Current Material Badge */}
+                <div className="absolute bottom-6 left-6 z-10">
+                    <div className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-white font-mono text-sm uppercase tracking-widest flex items-center gap-3">
+                        <div
+                            className="w-4 h-4 rounded-full border border-white/30"
+                            style={{ background: activeMaterial.color }}
+                        />
+                        <Palette className="w-4 h-4 text-gold-500" />
+                        {activeMaterial.name}
                     </div>
+                </div>
+
+                {/* Model Info Badge */}
+                {uploadedFileName && (
+                    <div className="absolute bottom-6 right-6 z-10">
+                        <div className="px-4 py-2 rounded-full bg-green-500/20 backdrop-blur-md border border-green-500/30 text-green-400 text-xs uppercase tracking-widest flex items-center gap-2">
+                            <Car className="w-4 h-4" />
+                            {uploadedFileName}
+                        </div>
+                    </div>
+                )}
+
+                {/* Instructions Overlay (shown initially) */}
+                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 pointer-events-none">
+                    <p className="text-zinc-500 text-xs uppercase tracking-widest text-center">
+                        Arrastrá para rotar • Scroll para zoom
+                    </p>
                 </div>
 
             </div>
 
             {/* 2. Controls Sidebar */}
             <div className="w-full lg:w-80 flex flex-col gap-4">
-                <div className="p-6 rounded-3xl bg-zinc-900/50 border border-white/5 h-full backdrop-blur-sm">
-                    <h3 className="text-xl font-bold text-white mb-2">Evo Studio</h3>
-                    <p className="text-zinc-500 text-sm mb-6">Selecciona un acabado para simular el look final.</p>
+                <div className="p-6 rounded-3xl bg-zinc-900/50 border border-white/5 h-full backdrop-blur-sm flex flex-col">
 
-                    <div className="space-y-3 overflow-y-auto max-h-[60vh] pr-2 custom-scrollbar">
-                        {FILTERS.map((filter) => (
-                            <button
-                                key={filter.id}
-                                onClick={() => setActiveFilter(filter)}
-                                className={cn(
-                                    "w-full text-left p-4 rounded-xl border transition-all duration-300 flex items-center gap-3 group relative overflow-hidden",
-                                    activeFilter.id === filter.id
-                                        ? "bg-white/10 border-indigo-500 text-white shadow-[0_0_20px_rgba(79,70,229,0.3)]"
-                                        : "bg-black/20 border-white/5 text-zinc-400 hover:bg-white/5 hover:border-white/10"
-                                )}
-                            >
-                                {/* Color Dot Preview */}
-                                <div className="w-8 h-8 rounded-full border border-white/10 shadow-inner" style={filter.id !== 'original' ? { background: filter.id === 'matte-black' ? '#222' : filter.id === 'nardo-grey' ? '#666' : filter.id === 'satin-white' ? '#eee' : filter.id === 'midnight-purple' ? '#3b0764' : filter.id === 'race-red' ? '#991b1b' : filter.id === 'miami-blue' ? '#06b6d4' : 'transparent' } : { background: 'linear-gradient(45deg, #333, #666)' }} />
-
-                                <span className="font-medium group-hover:translate-x-1 transition-transform">
-                                    {filter.name}
-                                </span>
-
-                                {activeFilter.id === filter.id && (
-                                    <motion.div layoutId="active-indicator" className="absolute right-0 top-0 bottom-0 w-1 bg-indigo-500" />
-                                )}
-                            </button>
-                        ))}
+                    {/* Header */}
+                    <div className="mb-6">
+                        <h3 className="text-2xl font-black text-white tracking-tight">
+                            EVO <span className="text-gold-500">Studio</span>
+                        </h3>
+                        <p className="text-zinc-500 text-sm mt-1">
+                            Seleccioná un acabado para visualizar el resultado.
+                        </p>
                     </div>
 
-                    <div className="mt-8 pt-6 border-t border-white/5">
-                        <button className="w-full py-4 bg-white text-black font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-zinc-200 transition-colors">
+                    {/* Material Selector */}
+                    <div className="flex-1 overflow-hidden">
+                        <MaterialSelector
+                            materials={WRAP_MATERIALS}
+                            activeMaterial={activeMaterial}
+                            onSelect={setActiveMaterial}
+                        />
+                    </div>
+
+                    {/* Action Button */}
+                    <div className="mt-6 pt-6 border-t border-white/5">
+                        <a
+                            href={`https://wa.me/59899123456?text=Hola! Me interesa el acabado ${activeMaterial.name} para mi vehículo.`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full py-4 bg-gold-600 text-black font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-gold-500 transition-colors shadow-[0_10px_30px_rgba(212,160,23,0.3)]"
+                        >
                             <Download className="w-5 h-5" />
                             Solicitar este Look
-                        </button>
-                        <p className="text-center text-xs text-zinc-600 mt-2">
+                        </a>
+                        <p className="text-center text-xs text-zinc-600 mt-3">
                             *Simulación aproximada. Los colores reales pueden variar.
+                        </p>
+                    </div>
+
+                    {/* Upload hint */}
+                    <div className="mt-4 p-4 rounded-xl bg-white/5 border border-white/5">
+                        <p className="text-zinc-400 text-xs">
+                            <strong className="text-white">Tip:</strong> Podés subir tu propio modelo 3D en formato <code className="text-gold-500">.glb</code> o <code className="text-gold-500">.gltf</code>
                         </p>
                     </div>
                 </div>
