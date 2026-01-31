@@ -1,7 +1,7 @@
 import Hero from "@/components/home/Hero";
 import TransformationSection from "@/components/home/TransformationSection";
 import ServicesHorizontal from "@/components/home/ServicesHorizontal";
-import Footer from "@/components/layout/Footer";
+
 import { getServices } from "@/lib/services-data";
 
 // This is a Server Component
@@ -21,7 +21,7 @@ export default async function Home() {
       <ServicesHorizontal data={servicesData} />
 
       {/* 4. FOOTER */}
-      <Footer />
+
 
     </main>
   );
