@@ -246,15 +246,7 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
                 </div>
             </section>
 
-            {/* Footer Simple */}
-            <footer className="py-12 text-center bg-neutral-950 relative z-10 border-t border-white/5">
-                <div className="w-32 mx-auto mb-6 opacity-40">
-                    <Logo />
-                </div>
-                <p className="text-neutral-600 text-[10px] uppercase tracking-[0.3em] font-black italic">
-                    © {new Date().getFullYear()} EVO Wrap. Estética Absoluta.
-                </p>
-            </footer>
+
         </main>
     );
 }
