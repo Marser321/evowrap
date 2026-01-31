@@ -36,8 +36,8 @@ export const defaultServicesData: Record<string, ServiceData> = {
         title: 'Tratamiento Cerámico',
         subtitle: 'Blindaje molecular. Brillo eterno.',
         description: 'La barrera definitiva. Nuestro recubrimiento químico se funde con la pintura, creando una armadura hidrofóbica capaz de repeler suciedad, químicos y radiación UV. No es solo brillo; es inmortalidad para tu carrocería.',
-        heroImage: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2070&auto=format&fit=crop', // Dark Reflection / Liquid look
-        secondaryImage: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2070', // Dramatic dark car
+        heroImage: '/images/portfolio/ceramic-reflection.jpg',
+        secondaryImage: '/images/portfolio/porsche-ceramic-shine.jpg',
         technicalSpecs: [
             { label: 'Dureza', value: '10H Diamond' },
             { label: 'Garantía', value: 'Vitalicia*' },
@@ -49,31 +49,31 @@ export const defaultServicesData: Record<string, ServiceData> = {
                 title: 'Descontaminación',
                 description: 'Eliminación quirúrgica de impurezas.',
                 icon: 'Microscope',
-                image: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=2070'
+                image: '/images/portfolio/detail-macro.jpg'
             },
             {
                 title: 'Corrección Paint',
                 description: 'Restauración de reflectividad al 100%.',
                 icon: 'Sparkles',
-                image: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=2070'
+                image: '/images/portfolio/wrap-process-1.jpg'
             },
             {
                 title: 'IPA Prep',
                 description: 'Esterilización de superficie.',
                 icon: 'Droplets',
-                image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070'
+                image: '/images/portfolio/wrap-studio-1.jpg'
             },
             {
                 title: 'Nano Aplicación',
                 description: 'Fusión molecular capa por capa.',
                 icon: 'Layers',
-                image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=2070'
+                image: '/images/portfolio/wrap-process-2.jpg'
             },
             {
                 title: 'Curado',
                 description: 'Cristalización bajo espectro IR.',
                 icon: 'Scan',
-                image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=2070'
+                image: '/images/portfolio/premium-finish.jpg'
             },
         ],
         faq: [
@@ -87,9 +87,9 @@ export const defaultServicesData: Record<string, ServiceData> = {
             },
         ],
         gallery: [
-            'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?q=80&w=2070', // Foam / Washing
-            'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=2070', // Polishing
-            'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=2070' // Coating application
+            '/images/portfolio/ceramic-reflection.jpg',
+            '/images/portfolio/detail-macro.jpg',
+            '/images/portfolio/porsche-ceramic-shine.jpg'
         ]
     },
     'ppf': {
@@ -97,8 +97,8 @@ export const defaultServicesData: Record<string, ServiceData> = {
         title: 'Paint Protection Film',
         subtitle: 'Armadura invisible. Resistencia militar.',
         description: 'La única defensa real contra la carretera. Film de poliuretano autorregenerativo que absorbe impactos de piedras, raspones y vandalismo. Tu pintura original, intacta, para siempre.',
-        heroImage: 'https://images.unsplash.com/photo-1621905252472-943af68f03fa?q=80&w=2070', // PPF Application / Detail
-        secondaryImage: 'https://images.unsplash.com/photo-1503376763036-066120622c74?q=80&w=2070',
+        heroImage: '/images/portfolio/ppf-application.jpg',
+        secondaryImage: '/images/portfolio/lambo-matte-wrap.jpg',
         technicalSpecs: [
             { label: 'Grosor', value: '250 Micrones' },
             { label: 'Self-Healing', value: 'Instantáneo' },
@@ -110,31 +110,31 @@ export const defaultServicesData: Record<string, ServiceData> = {
                 title: 'Prep Quirúrgica',
                 description: 'Descontaminación total.',
                 icon: 'Microscope',
-                image: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=2070'
+                image: '/images/portfolio/detail-macro.jpg'
             },
             {
                 title: 'Diseño CNC',
                 description: 'Corte digital, cero navajas en pintura.',
                 icon: 'Scan',
-                image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070'
+                image: '/images/portfolio/wrap-studio-1.jpg'
             },
             {
                 title: 'Instalación',
                 description: 'Posicionamiento en gel sin tensión.',
                 icon: 'Layers',
-                image: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=2070'
+                image: '/images/portfolio/wrap-process-1.jpg'
             },
             {
                 title: 'Wrapping de Bordes',
                 description: 'Bordes envueltos para invisibilidad.',
                 icon: 'Shield',
-                image: 'https://images.unsplash.com/photo-1621359953476-b1629904f81c?q=80&w=2070'
+                image: '/images/portfolio/wrap-process-2.jpg'
             },
             {
                 title: 'Control QC',
                 description: 'Inspección microscópica final.',
                 icon: 'UserCheck',
-                image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=2070'
+                image: '/images/portfolio/premium-finish.jpg'
             },
         ],
         faq: [
@@ -142,9 +142,9 @@ export const defaultServicesData: Record<string, ServiceData> = {
             { question: '¿Se nota?', answer: 'Si está bien instalado, es indetectable a simple vista.' },
         ],
         gallery: [
-            'https://images.unsplash.com/photo-1493238792015-fa643c15b179?q=80&w=2071',
-            'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2070',
-            'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2070'
+            '/images/portfolio/ppf-application.jpg',
+            '/images/portfolio/ceramic-reflection.jpg',
+            '/images/portfolio/lambo-matte-wrap.jpg'
         ]
     },
     'wrapping': {
@@ -152,8 +152,8 @@ export const defaultServicesData: Record<string, ServiceData> = {
         title: 'Color Change Wrap',
         subtitle: 'Tu visión. Tu color. Sin compromisos.',
         description: 'Reinventa tu vehículo. Más de 500 acabados premium desde Matte Metallic hasta Satin Chrome. Personalización reversible que protege tu pintura original.',
-        heroImage: 'https://images.unsplash.com/photo-1493238792015-fa643c15b179?q=80&w=2071&auto=format&fit=crop', // Matte Black Merc
-        secondaryImage: 'https://images.unsplash.com/photo-1615900119312-2acd3a71f3ad?q=80&w=2070',
+        heroImage: '/images/portfolio/matte-black-gtr.jpg',
+        secondaryImage: '/images/portfolio/bmw-satin-wrap.jpg',
         technicalSpecs: [
             { label: 'Film', value: '3M / Avery' },
             { label: 'Vida Útil', value: '5-7 Años' },
@@ -165,31 +165,31 @@ export const defaultServicesData: Record<string, ServiceData> = {
                 title: 'Desarme',
                 description: 'Acceso a bordes profundos.',
                 icon: 'Scan',
-                image: 'https://images.unsplash.com/photo-1597598852336-39f50e321591?q=80&w=2070'
+                image: '/images/portfolio/wrap-studio-2.jpg'
             },
             {
                 title: 'Limpieza',
                 description: 'Eliminación total de ceras.',
                 icon: 'Droplets',
-                image: 'https://images.unsplash.com/photo-1618485295982-f67353f40d58?q=80&w=2070'
+                image: '/images/portfolio/detail-macro.jpg'
             },
             {
                 title: 'Aplicación',
                 description: 'Técnica de vidrio "zero-stretch".',
                 icon: 'Layers',
-                image: 'https://images.unsplash.com/photo-1621359953476-b1629904f81c?q=80&w=2070'
+                image: '/images/portfolio/wrap-process-2.jpg'
             },
             {
                 title: 'Post-Heat',
                 description: 'Sellado de memoria a 90°C.',
                 icon: 'Sparkles',
-                image: 'https://images.unsplash.com/photo-1549429184-c8d8c973f739?q=80&w=2070'
+                image: '/images/portfolio/gallery-1.jpg'
             },
             {
                 title: 'Re-Armado',
                 description: 'Ajuste de fábrica.',
                 icon: 'Shield',
-                image: 'https://images.unsplash.com/photo-1616422285623-13ff0162193c?q=80&w=2071'
+                image: '/images/portfolio/premium-finish.jpg'
             }
         ],
         faq: [
@@ -197,8 +197,8 @@ export const defaultServicesData: Record<string, ServiceData> = {
             { question: '¿Cuidados?', answer: 'Lavado a mano. Evitar túneles de rodillos.' },
         ],
         gallery: [
-            'https://images.unsplash.com/photo-1493238792015-fa643c15b179?q=80&w=2071',
-            'https://images.unsplash.com/photo-1621359953476-b1629904f81c?q=80&w=2070'
+            '/images/portfolio/matte-black-gtr.jpg',
+            '/images/portfolio/wrap-process-2.jpg'
         ]
     },
     'detailing': {
@@ -206,8 +206,8 @@ export const defaultServicesData: Record<string, ServiceData> = {
         title: 'Interior Boutique',
         subtitle: 'Restauración. Desinfección. Perfección.',
         description: 'Vapor a alta presión y química enzimática para devolver la textura y el olor original a su interior. Cada superficie, desde el cuero más fino hasta las alfombras más densas, es tratada con precisión quirúrgica.',
-        heroImage: 'https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=2070&auto=format&fit=crop', // Interior Dark
-        secondaryImage: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=2070',
+        heroImage: '/images/portfolio/detailing-interior.jpg',
+        secondaryImage: '/images/portfolio/detail-macro.jpg',
         technicalSpecs: [
             { label: 'Tiempo', value: 'Full Day' },
             { label: 'Proceso', value: 'Vapor/Ozono' },
@@ -219,31 +219,31 @@ export const defaultServicesData: Record<string, ServiceData> = {
                 title: 'Aspirado',
                 description: 'Extracción de profundidad.',
                 icon: 'Scan',
-                image: 'https://images.unsplash.com/photo-1520031856722-e3e979d38392?q=80&w=2070'
+                image: '/images/portfolio/wrap-studio-2.jpg'
             },
             {
                 title: 'Enzimas',
                 description: 'Breakdown de manchas orgánicas.',
                 icon: 'Droplets',
-                image: 'https://images.unsplash.com/photo-1632823471449-3353db47f525?q=80&w=2070'
+                image: '/images/portfolio/detail-macro.jpg'
             },
             {
                 title: 'Vapor',
                 description: 'Sanitización de ductos.',
                 icon: 'Sparkles',
-                image: 'https://images.unsplash.com/photo-1635332847249-144f80877014?q=80&w=2070'
+                image: '/images/portfolio/gallery-2.jpg'
             },
             {
                 title: 'Cueros',
                 description: 'Nutrición mate acabado fábrica.',
                 icon: 'Layers',
-                image: 'https://images.unsplash.com/photo-1494905998402-395d579af36f?q=80&w=2070'
+                image: '/images/portfolio/gallery-3.jpg'
             },
             {
                 title: 'Protección',
                 description: 'Sellado UV de tableros.',
                 icon: 'Shield',
-                image: 'https://images.unsplash.com/photo-1503376763036-066120622c74?q=80&w=2070'
+                image: '/images/portfolio/premium-finish.jpg'
             },
         ],
         faq: [
@@ -251,9 +251,9 @@ export const defaultServicesData: Record<string, ServiceData> = {
             { question: '¿Secado?', answer: 'Se entrega 100% seco y listo para usar.' },
         ],
         gallery: [
-            'https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=2070',
-            'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=2070',
-            'https://images.unsplash.com/photo-1584621539227-2ad16a8d8763?q=80&w=2070'
+            '/images/portfolio/detailing-interior.jpg',
+            '/images/portfolio/detail-macro.jpg',
+            '/images/portfolio/gallery-4.jpg'
         ]
     }
 };
