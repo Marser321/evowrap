@@ -21,10 +21,10 @@ const ModelViewer3D = dynamic(() => import('./ModelViewer3D'), {
     ),
 });
 
-const DEFAULT_MODEL = '/models/demo-car.glb';
+const DEFAULT_MODEL = null; // No hay modelo por defecto, usamos fallback geometry
 
 export default function VisualizerStage() {
-    const [modelUrl, setModelUrl] = useState<string>(DEFAULT_MODEL);
+    const [modelUrl, setModelUrl] = useState<string | null>(DEFAULT_MODEL);
     const [activeMaterial, setActiveMaterial] = useState<WrapMaterial>(WRAP_MATERIALS[0]);
     const [isUploading, setIsUploading] = useState(false);
     const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
