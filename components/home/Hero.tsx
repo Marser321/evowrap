@@ -77,7 +77,7 @@ export default function Hero() {
         <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-neutral-950">
             {/* 1. Cinematic Background Layer */}
             <HeroBackground
-                src="/images/portfolio/hero-dark-luxury.jpg"
+                src="/images/portfolio/porsche-ceramic-shine.jpg"
                 alt="Luxury Sports Car in Dark Studio"
             />
 
